@@ -1,0 +1,4 @@
+#+TITLE: My personal emacs config
+
+This configuration is loosely inspired by [[https://github.com/seagle0128/.emacs.d][centaur emacs]] and relies on
+[[https://github.com/jwiegley/use-package][use-package]] for its configuration.

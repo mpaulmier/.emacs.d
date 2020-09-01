@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: read-list
+# key: read-list
+# --
+
+(defun read-list ()
+    (let ((n (read *standard-input* nil)))
+        (if (null n)
+            nil
+            (cons n (read-list)))))

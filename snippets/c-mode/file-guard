@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Header file Guard
+# key:  guard
+# --
+
+#ifndef ${1:_`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H_INCLUDED}
+#define $1
+
+$0
+
+#endif /* $1 */

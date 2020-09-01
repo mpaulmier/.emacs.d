@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Flatten list
+# key: flatten
+# --
+
+[$1 for sublist in $2 for $1 in sublist]

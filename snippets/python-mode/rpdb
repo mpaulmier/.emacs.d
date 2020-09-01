@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Remote Python Debugger
+# key: rpdb
+# --
+
+import rpdb; rpdb.set_trace()

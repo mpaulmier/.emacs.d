@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: format-list
+# key: format-list
+# --
+
+(format t "~{~d~%~}" $0)

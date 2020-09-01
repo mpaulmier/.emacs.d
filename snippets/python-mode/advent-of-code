@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: Advent of code template
+# key: advent-of-code
+# --
+
+#!/usr/bin/env python3
+
+def sol1(lines):
+    pass
+
+def sol2(lines):
+    pass
+
+with open("input.txt") as f:
+    lines = f.readlines()
+    print("Solution 1: {}".format(sol1(lines)))
+    print("Solution 2: {}".format(sol2(lines)))
