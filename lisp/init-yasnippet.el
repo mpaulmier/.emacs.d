@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package yasnippet
-  :ensure t
   :diminish yas-minor-mode
   :custom
   (yas-snippet-dirs '("~/.emacs.d/snippets"))

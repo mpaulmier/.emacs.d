@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package lsp-mode
-  :ensure t
   :commands (lsp lsp-deferred)
   :hook
   (lsp-mode . lsp-enable-which-key-integration)
@@ -26,7 +25,6 @@
   (lsp-keymap-prefix "C-c l"))
 
 (use-package lsp-ui
-  :ensure t
   :hook (lsp-mode . lsp-ui-mode)
   :after lsp-mode
   :custom

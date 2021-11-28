@@ -14,12 +14,10 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package move-text
-  :ensure t
   :bind (("M-p" . move-text-up)
          ("M-n" . move-text-down)))
 
 (use-package rainbow-delimiters
-  :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (setq-default major-mode 'text-mode

@@ -14,8 +14,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package markdown-mode
-  :ensure t
-  :bind (:map markdown-mode-map ("C-x C-s" . mp/save-buffer-without-dtw)))
+  :bind (:map markdown-mode-map
+         ("C-x C-s" . mp/save-buffer-without-dtw)))
 
 (use-package nxml-mode
   :ensure nil

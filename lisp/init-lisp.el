@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package paredit
-  :ensure t
   :diminish paredit-mode
   :hook ((lisp-mode emacs-lisp-mode) . paredit-mode)
   :init
@@ -22,7 +21,6 @@
 
 (use-package slime
   :if (executable-find "sbcl")
-  :ensure t
   :config
   (load (expand-file-name "~/.quicklisp/slime-helper.el"))
   (setq inferior-lisp-program "/usr/bin/sbcl"

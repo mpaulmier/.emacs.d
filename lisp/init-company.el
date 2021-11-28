@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package company
-  :ensure t
   :diminish company-mode
   :bind (:map company-active-map
          ("<tab>" . nil)

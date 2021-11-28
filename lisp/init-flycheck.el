@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package flycheck
-  :ensure t
   :diminish flycheck-mode
   :custom
   (flycheck-check-syntax-automatically '(save new-line))

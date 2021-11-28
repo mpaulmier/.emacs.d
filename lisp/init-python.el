@@ -24,7 +24,6 @@
          ("M-<left>" . python-indent-shift-left)))
 
 (use-package lsp-pyright
-  :ensure t
   :hook
   (python-mode . (lambda ()
                    (require 'lsp-pyright)

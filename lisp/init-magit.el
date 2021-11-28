@@ -15,7 +15,6 @@
 
 (use-package magit
   :if (executable-find "git")
-  :ensure t
   :bind (("C-c g" . magit-status)
 	 ("C-c G" . magit-blame-addition)
 	 ("C-c i" . magit-init)
@@ -40,7 +39,6 @@
     (jump-to-register :magit-fullscreen)))
 
 (use-package forge
-  :ensure t
   :after magit)
 
 (provide 'init-magit)
