@@ -15,7 +15,7 @@
 
 (defun mp/browse-emacs-conf-dir ()
   (interactive)
-  (counsel-find-file nil (concat user-emacs-directory "lisp/")))
+  (ido-find-file-in-dir (concat user-emacs-directory "lisp/")))
 
 (defun mp/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
