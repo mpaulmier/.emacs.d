@@ -29,4 +29,7 @@
                    (require 'lsp-pyright)
                    (lsp-deferred))))
 
+(use-package pyenv-mode
+  :hook (python-mode . pyenv-mode))
+
 (provide 'init-python)
