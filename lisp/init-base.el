@@ -18,7 +18,7 @@
 
 (setq inhibit-startup-message t)
 (setq auto-save-default nil
-      emacs-backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))
+      backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))
       create-lockfiles nil)
 
 (menu-bar-mode -1)
@@ -37,7 +37,8 @@
       scroll-conservatively most-positive-fixnum
       select-enable-clipboard t
       window-combination-resize t
-      ring-bell-function nil)
+      ring-bell-function nil
+      vc-follow-symlinks t)
 
 (setq-default show-trailing-whitespace t)
 

@@ -14,7 +14,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defconst mp/emacs-tmp-dir
-  (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid))
+  (format "%s%s%s/" temporary-file-directory "emacs" (user-uid))
   "Temporary files go here")
 
 (defconst mp/custom-file
