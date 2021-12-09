@@ -69,8 +69,8 @@
            (insert (current-kill 0)))))
 
 (defun mp/pulse-line (&rest _)
-      "Pulse the current line."
-      (pulse-momentary-highlight-one-line (point)))
+  "Pulse the current line."
+  (pulse-momentary-highlight-one-line (point)))
 
 (defun mp/disable-show-trailing-whitespace ()
   "Use this as hook to disable show-trailing-whitespace locally"
