@@ -38,6 +38,7 @@
       select-enable-clipboard t
       window-combination-resize t
       ring-bell-function nil
+      visible-bell t
       vc-follow-symlinks t)
 
 (setq-default show-trailing-whitespace t)

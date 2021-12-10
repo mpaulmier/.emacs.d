@@ -17,7 +17,16 @@
   :custom
   (vertico-cycle t)
   :init
-  (vertico-mode 1))
+  (vertico-mode 1)
+  :config
+  ;; Ring bell on cycle
+  (advice-add #'vertico-next
+              :around
+              #'(lambda (origin &rest args)
+                  (let ((beg-index vertico--index))
+                    (apply origin args)
+                    (if (not (eq 1 (abs (- beg-index vertico--index))))
+                        (ding))))))
 
 (use-package vertico-directory
   :ensure nil
