@@ -31,6 +31,7 @@
 (require 'init-edit)
 (require 'init-embark)
 (require 'init-flycheck)
+(require 'init-ibuffer)
 (require 'init-lisp)
 (require 'init-lsp)
 (require 'init-magit)
