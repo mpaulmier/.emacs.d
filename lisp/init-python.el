@@ -19,17 +19,33 @@
   (python-mode . flycheck-mode)
   (python-mode . company-mode)
   (python-mode . yas-minor-mode)
+  (python-mode . electric-pair-mode)
   :bind (:map python-mode-map
          ("M-<right>" . python-indent-shift-right)
          ("M-<left>" . python-indent-shift-left)))
+  :custom
+  (python-check-command "flake8 --max-complexity 15"))
 
-(use-package lsp-pyright
-  :hook
-  (python-mode . (lambda ()
-                   (require 'lsp-pyright)
-                   (lsp-deferred))))
+(use-package flycheck
+  :ensure nil
+  :custom
+  (flycheck-flake8-maximum-complexity 15)
+  :init
+  ;; Run flycheck on the entire buffer when opening a file
+  ;; This allows seeing the errors on the file without having to modify it first
+  (add-hook 'flycheck-mode-hook
+            #'(lambda ()
+                (flycheck-buffer))))
+
+(use-package lsp-python-ms
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp-deferred))))
 
 (use-package pyenv-mode
   :hook (python-mode . pyenv-mode))
+
+(use-package pyenv-mode-auto)
 
 (provide 'init-python)
