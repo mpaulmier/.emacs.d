@@ -26,7 +26,8 @@
                   (let ((beg-index vertico--index))
                     (apply origin args)
                     (if (not (eq 1 (abs (- beg-index vertico--index))))
-                        (ding))))))
+                        (let ((visible-bell t))
+                          (ding)))))))
 
 (use-package vertico-directory
   :ensure nil
