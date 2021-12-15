@@ -21,7 +21,7 @@
          ("M-<tab>" . comapny-complete-common-or-cycle)
          ("M-<tab>" . company-complete-selection)
          :map lsp-mode-map
-         ("M-<tab>" . company-indente-or-complete-common))
+         ("M-<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 2)
   (company-idle-delay .01))
