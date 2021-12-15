@@ -52,6 +52,8 @@
          ("C-s" . consult-line)
          ("C-S-s" . consult-ripgrep)
          ("C-S-x C-S-f" . consult-find))
+  :custom
+  (consult-line-start-from-top t)
   :config
   (setq consult-project-root-function
         (lambda ()
