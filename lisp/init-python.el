@@ -20,11 +20,11 @@
   (python-mode . company-mode)
   (python-mode . yas-minor-mode)
   (python-mode . electric-pair-mode)
+  :custom
+  (python-check-command "flake8 --max-complexity 15")
   :bind (:map python-mode-map
          ("M-<right>" . python-indent-shift-right)
          ("M-<left>" . python-indent-shift-left)))
-  :custom
-  (python-check-command "flake8 --max-complexity 15"))
 
 (use-package flycheck
   :ensure nil
