@@ -19,7 +19,8 @@
 (setq inhibit-startup-message t)
 (setq auto-save-default nil
       backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))
-      create-lockfiles nil)
+      create-lockfiles nil
+      custom-file mp/custom-file)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
