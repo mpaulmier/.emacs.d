@@ -17,9 +17,6 @@
   :bind (("M-p" . move-text-up)
          ("M-n" . move-text-down)))
 
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
 (setq-default major-mode 'text-mode
               fill-column 80
               tab-width 4
