@@ -25,8 +25,6 @@
 
 (use-package flycheck
   :ensure t
-  :custom
-  (flycheck-flake8-maximum-complexity 15)
   :init
   ;; Run flycheck on the entire buffer when opening a file
   ;; This allows seeing the errors on the file without having to modify it first

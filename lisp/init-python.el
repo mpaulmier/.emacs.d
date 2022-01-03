@@ -24,7 +24,9 @@
   (python-check-command "flake8 --max-complexity 15")
   :bind (:map python-mode-map
          ("M-<right>" . python-indent-shift-right)
-         ("M-<left>" . python-indent-shift-left)))
+         ("M-<left>" . python-indent-shift-left))
+  :config
+  (setq flycheck-flake8-maximum-complexity 15))
 
 (use-package lsp-python-ms
   :ensure t
