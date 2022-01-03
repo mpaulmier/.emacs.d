@@ -1,4 +1,4 @@
-;; Copyright (C) 2021  Matthias Paulmier
+;; Copyright (C) 2022  Matthias Paulmier
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,28 +13,25 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package python
+(use-package highlight-indent-guides
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-responsive 'top))
+
+(use-package prog
   :ensure nil
   :hook
-  (python-mode . flycheck-mode)
-  (python-mode . company-mode)
-  (python-mode . yas-minor-mode)
-  (python-mode . electric-pair-mode)
-  :custom
-  (python-check-command "flake8 --max-complexity 15")
-  :bind (:map python-mode-map
-         ("M-<right>" . python-indent-shift-right)
-         ("M-<left>" . python-indent-shift-left)))
+  (python-mode . highlight-indent-guides-mode))
 
-(use-package lsp-python-ms
+(use-package flycheck
   :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp-deferred))))
+  :custom
+  (flycheck-flake8-maximum-complexity 15)
+  :init
+  ;; Run flycheck on the entire buffer when opening a file
+  ;; This allows seeing the errors on the file without having to modify it first
+  (add-hook 'flycheck-mode-hook
+            #'(lambda ()
+                (flycheck-buffer))))
 
-(use-package pyenv-mode
-  :hook (python-mode . pyenv-mode))
-
-(use-package pyenv-mode-auto)
-
-(provide 'init-python)
+(provide 'init-prog)

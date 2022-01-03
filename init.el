@@ -37,6 +37,7 @@
 (require 'init-magit)
 (require 'init-markup)
 (require 'init-mc)
+(require 'init-prog)
 (require 'init-python)
 (require 'init-which-key)
 (require 'init-yasnippet)
