@@ -16,11 +16,11 @@
 (use-package magit
   :if (executable-find "git")
   :bind (("C-c g" . magit-status)
-	 ("C-c G" . magit-blame-addition)
-	 ("C-c i" . magit-init)
+	     ("C-c G" . magit-blame-addition)
+	     ("C-c i" . magit-init)
 
-	 :map magit-status-mode-map
-	 ("q" . mp/magit-quit-session))
+	     :map magit-status-mode-map
+	     ("q" . mp/magit-quit-session))
   :custom
   ;; Maximum acceptable width for summary buffer
   (git-commit-summary-max-length 50)
@@ -37,8 +37,5 @@
     (interactive)
     (kill-buffer)
     (jump-to-register :magit-fullscreen)))
-
-(use-package forge
-  :after magit)
 
 (provide 'init-magit)

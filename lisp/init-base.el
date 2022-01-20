@@ -22,7 +22,6 @@
       create-lockfiles nil
       custom-file mp/custom-file)
 
-(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (column-number-mode)
@@ -44,7 +43,11 @@
 
 (setq-default show-trailing-whitespace t)
 
-(global-subword-mode 1)
+(use-package subword
+  :diminish subword-mode
+  :init
+  (global-subword-mode 1))
+
 (blink-cursor-mode -1)
 (delete-selection-mode t)
 (show-paren-mode t)
@@ -66,6 +69,7 @@
 (global-set-key (kbd "<f5>") #'revert-buffer)
 (global-set-key (kbd "C-x C-r") #'mp/rename-current-buffer-file)
 (global-set-key (kbd "C-c e") #'mp/browse-emacs-conf-dir)
+(global-set-key (kbd "C-c o") #'mp/browse-org-dir)
 (global-set-key (kbd "C-S-x C-S-e") #'mp/eval-and-replace)
 
 (use-package lice)

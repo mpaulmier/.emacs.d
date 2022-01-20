@@ -17,6 +17,10 @@
   (interactive)
   (ido-find-file-in-dir (concat user-emacs-directory "lisp/")))
 
+(defun mp/browse-org-dir ()
+  (interactive)
+  (ido-find-file-in-dir (concat (getenv "HOME") "/Org/")))
+
 (defun mp/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
@@ -35,7 +39,7 @@
                    name (file-name-nondirectory new-name)))))))
 
 (defun mp/save-buffer-without-dtw ()
-  "Save current buffer without running the `'delete-trailing-whitespace` hook"
+  "Save current buffer without running the `delete-trailing-whitespace' hook"
   (interactive)
   (let ((should-dtw (memq 'delete-trailing-whitespace before-save-hook)))
     (if should-dtw
@@ -75,5 +79,13 @@
 (defun mp/disable-show-trailing-whitespace ()
   "Use this as hook to disable show-trailing-whitespace locally"
   (setq show-trailing-whitespace nil))
+
+;; Macros
+
+(defmacro without-major-mode (&rest body)
+  `(progn
+     (major-mode-suspend)
+     ,@body
+     (major-mode-restore)))
 
 (provide 'init-functions)

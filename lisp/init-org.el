@@ -1,4 +1,4 @@
-;; Copyright (C) 2021  Matthias Paulmier
+;; Copyright (C) 2022  Matthias Paulmier
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,19 +13,23 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package dired
-  :ensure nil
-  :bind (("C-x C-d" . dired-jump)
-         :map dired-mode-map
-         ("C-c o" . mp/dired-xdg-open-file))
-  :custom (dired-listing-switches "-FlaGhv")
-  :init
-  (put 'dired-find-alternate-file 'disabled nil)
-  :config
-  (defun mp/dired-xdg-open-file ()
-    "In dired, open the file named on this line."
-    (interactive)
-    (let* ((file (dired-get-filename nil t)))
-      (call-process "xdg-open" nil 0 nil file))))
+(require 'init-functions)
 
-(provide 'init-dired)
+(use-package org
+  :ensure nil
+  :bind (("C-c a" . org-agenda)
+         ("C-c c" . org-capture))
+  :custom
+  (org-agenda-files '("next.org" "todo.org" "habits.org"))
+  (org-capture-templates '()))
+
+(use-package org-bullets
+  :diminish org-bullets-mode
+  :after org
+  :hook (org-mode . org-bullets-mode))
+
+(use-package calendar
+  :ensure nil
+  :hook (calendar-mode . #'mp/disable-stw-maybe))
+
+(provide 'init-org)

@@ -14,9 +14,15 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package highlight-indent-guides
+  :diminish highlight-indent-guides-mode
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-responsive 'top))
+
+(use-package hideshow
+  :diminish hs-minor-mode
+  :ensure nil
+  :hook (prog-mode . hs-minor-mode))
 
 (use-package prog
   :ensure nil

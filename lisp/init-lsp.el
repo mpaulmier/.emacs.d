@@ -14,6 +14,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package lsp-mode
+  :diminish lsp-mode
   :commands (lsp lsp-deferred)
   :hook
   (lsp-mode . lsp-enable-which-key-integration)

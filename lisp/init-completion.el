@@ -51,9 +51,11 @@
          ("C-x b" . consult-buffer)
          ("C-s" . consult-line)
          ("C-S-s" . consult-ripgrep)
-         ("C-S-x C-S-f" . consult-find))
+         ("C-S-x C-S-f" . consult-find)
+         ([remap imenu] . consult-imenu))
   :custom
   (consult-line-start-from-top t)
+  (consult-preview-key nil)
   :config
   (setq consult-project-root-function
         (lambda ()
