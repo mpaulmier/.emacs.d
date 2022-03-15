@@ -36,37 +36,7 @@
       (load-theme 'tsdh-light t)
       (when (member "Iosevka" (font-family-list))
         (setq default-frame-alist '((font . "Iosevka")))
-        (set-face-attribute 'default nil :height 140))))
-
-  ;; (when (member "Iosevka" (font-family-list))
-  ;;   (dolist (char/ligature-re
-  ;;            `(
-  ;;              (?/  ,(rx (or (or "/==" "/=" "/>" "/**" "/*") (+ "/"))))
-  ;;              (?<  ,(rx (or (or "<<=" "<<-" "<|||" "<==>" "<!--" "<=>" "<||" "<-<"
-  ;;                                "<==" "<=<" "<-|" "<~>" "<=|" "<~~"
-  ;;                                "<->" "<=" "<|" "<:" "<>"  "<$" "<-" "<~")
-  ;;                            (+ "<"))))
-  ;;              (?=  ,(rx (or (or "=>>" "==>" "=/=" "=!=" "=>" "=:=") (+ "="))))
-  ;;              (?&  ,(rx (+ "&")))
-  ;;              (?|  ,(rx (or (or "|->" "|||>" "||>" "|=>" "||-" "||=" "|-" "|>" "|]" "|}" "|=")
-  ;;                            (+ "|"))))
-  ;;              (?>  ,(rx (or (or ">>-" ">>=" ">=>" ">]" ">:" ">-" ">=") (+ ">"))))
-  ;;              (?!  ,(rx (or (or "!==" "!=") (+ "!"))))
-  ;;              (?.  ,(rx (or (or ".?" ".=" ".-" "..<") (+ "."))))
-  ;;              (?+  ,(rx (or "+>" (+ "+"))))
-  ;;              (?\[ ,(rx (or "[<" "[|")))
-  ;;              (?\{ ,(rx "{|"))
-  ;;              (?\? ,(rx (or (or "?." "?=" "?:") (+ "?"))))
-  ;;              (?#  ,(rx (or (or "#_(" "#[" "#{" "#=" "#!" "#:" "#_" "#?" "#(") (+ "#"))))
-  ;;              (?\; ,(rx (+ ";")))
-  ;;              (?_  ,(rx (or "_|_" "__")))
-  ;;              (?~  ,(rx (or "~~>" "~~" "~>" "~-" "~@")))
-  ;;              ))
-  ;;     (apply (lambda (char ligature-re)
-  ;;              (set-char-table-range composition-function-table char
-  ;;                                    `([,ligature-re 0 font-shape-gstring])))
-  ;;            char/ligature-re)))
-  )
+        (set-face-attribute 'default nil :height 140)))))
 
 (dolist (command
          '(scroll-up-command
