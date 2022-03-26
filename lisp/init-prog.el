@@ -27,7 +27,8 @@
 (use-package prog
   :ensure nil
   :hook
-  (python-mode . highlight-indent-guides-mode))
+  (prog-mode . electric-pair-mode)
+  (prog-mode . highlight-indent-guides-mode))
 
 (use-package flycheck
   :ensure t

@@ -19,7 +19,6 @@
   (python-mode . flycheck-mode)
   (python-mode . company-mode)
   (python-mode . yas-minor-mode)
-  (python-mode . electric-pair-mode)
   :custom
   (python-check-command "flake8 --max-complexity 15")
   :bind (:map python-mode-map

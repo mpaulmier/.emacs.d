@@ -39,5 +39,6 @@
 (require 'init-mc)
 (require 'init-prog)
 (require 'init-python)
+(require 'init-rust)
 (require 'init-which-key)
 (require 'init-yasnippet)
