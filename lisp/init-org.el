@@ -18,18 +18,31 @@
 (use-package org
   :ensure nil
   :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture))
+         ("C-c c" . org-capture)
+         ("C-c o" . #'mp/browse-org-dir)
+         ("C-c x w" . #'org-copy-region-as-markdown))
   :custom
-  (org-agenda-files '("next.org" "todo.org" "habits.org"))
-  (org-capture-templates '()))
+  (org-export-backends '(ascii html icalendar latex odt md))
+  (org-startup-folded 'overview)
+  (org-log-into-drawer t)
+  (org-todo-keywords '("TODO(t)" "WAIT(w@)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c@)"))
+  (org-capture-templates
+   `(("t" "Task")
+     ("tt" "New Task" entry (file ,(concat mp/org-directory "inbox.org"))
+      "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+     ("c" "Call")
+     ("cc")))
+  :init
+  (require 'org-capture)
+  :config
+  (setq-default org-agenda-files '()
+                initial-major-mode 'org-mode
+                initial-scratch-message "#+TITLE: Scratch buffer\n\n")
+  (dolist (file '("todo.org" "habits.org"))
+    (add-to-list 'org-agenda-files (concat mp/org-directory file))))
 
 (use-package org-bullets
-  :diminish org-bullets-mode
-  :after org
+  :ensure t
   :hook (org-mode . org-bullets-mode))
-
-(use-package calendar
-  :ensure nil
-  :hook (calendar-mode . #'mp/disable-stw-maybe))
 
 (provide 'init-org)

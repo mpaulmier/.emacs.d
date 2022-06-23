@@ -15,6 +15,7 @@
 
 (use-package calendar
   :ensure nil
+  :hook (calendar-mode . mp/disable-stw-maybe)
   :config
   (setq calendar-week-start-day 1))
 

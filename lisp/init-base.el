@@ -41,12 +41,8 @@
       visible-bell nil
       vc-follow-symlinks t)
 
-(setq-default show-trailing-whitespace t)
-
-(use-package subword
-  :diminish subword-mode
-  :init
-  (global-subword-mode 1))
+(setq-default show-trailing-whitespace t
+              truncate-lines t)
 
 (blink-cursor-mode -1)
 (delete-selection-mode t)
@@ -55,23 +51,33 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Delete trailing whitespaces before saving
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
+(add-hook 'before-save-hook #'mp/delete-trailing-whitespace-maybe)
 (add-hook 'before-save-hook #'mp/save-executable-buffer)
 
 ;; Disable show-trailing-whitespace for minibuffer
-(add-hook 'minibuffer-setup-hook #'mp/disable-show-trailing-whitespace)
+(add-hook 'minibuffer-setup-hook #'mp/disable-stw-maybe)
 
 (when (file-exists-p mp/custom-file)
   (load-file mp/custom-file))
 (put 'narrow-to-region 'disabled nil)
 
 ;; Global key bindings that cannot be attributed to specific packages
-(global-set-key (kbd "<f5>") #'revert-buffer)
+(global-set-key (kbd "<f5>") #'revert-buffer-quick)
 (global-set-key (kbd "C-x C-r") #'mp/rename-current-buffer-file)
 (global-set-key (kbd "C-c e") #'mp/browse-emacs-conf-dir)
-(global-set-key (kbd "C-c o") #'mp/browse-org-dir)
 (global-set-key (kbd "C-S-x C-S-e") #'mp/eval-and-replace)
+(global-set-key (kbd "C-=") #'mp/increment-number-at-point)
+(global-set-key (kbd "C--") #'mp/decrement-number-at-point)
+(global-set-key (kbd "M-S-<SPC>") #'mp/join-line-one-space)
+;; Scroll horizontally
+(global-set-key (kbd "<mouse-6>") (lambda () (interactive)
+				    (if truncate-lines (scroll-right 1))))
+(global-set-key (kbd "<mouse-7>") (lambda () (interactive)
+				    (if truncate-lines (scroll-left 1))))
 
 (use-package lice)
+
+(use-package nlinum
+  :custom (nlinum-format " %d "))
 
 (provide 'init-base)

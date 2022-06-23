@@ -17,34 +17,34 @@
 ;; first frame spawned. To work arount that, dismiss the first frame
 ;; and spawn a new one.
 
-;; TODO: Fix font on first frame?
+(require 'init-functions)
 
 (use-package faces
   :ensure nil
+  :bind ("C-c p" . mp/toggle-presentation-view)
+  :custom
+  (modus-themes-bold-constructs t)
+  (modus-themes-italic-constructs t)
+  (modus-themes-syntax '(green-strings))
+  (modus-themes-prompts '(bold intense))
+  (modus-themes-bold-constructs t)
+  (modus-themes-completions 'opinionated)
+  (modus-themes-italic-constructs t)
+  (modus-themes-mode-line '(accented borderless padded))
+  (modus-themes-paren-match '(bold intense))
+  (modus-themes-region '(no-extend accented))
+  (modus-themes-slanted-constructs t)
+  (modus-themes-hl-line '(intense))
+  :custom-face
+  (mode-line ((t (:underline nil))))
   :config
-  (defun mp/set-theme (frame)
-    (with-selected-frame frame
-      (load-theme 'tsdh-light t)
-      (when (member "Iosevka" (font-family-list))
-        (setq default-frame-alist '((font . "Iosevka")))
-        (set-face-attribute 'default nil :height 140)))
-    (remove-hook 'after-make-frame-functions #'mp/set-theme))
+  (progn
+    (load-theme 'modus-operandi t)
+    (when (member "Iosevka" (font-family-list))
+      (setq default-frame-alist '((font . "Iosevka"))))))
 
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions #'mp/set-theme)
-    (progn
-      (load-theme 'tsdh-light t)
-      (when (member "Iosevka" (font-family-list))
-        (setq default-frame-alist '((font . "Iosevka")))
-        (set-face-attribute 'default nil :height 140)))))
-
-(dolist (command
-         '(scroll-up-command
-           scroll-down-command
-           recenter-top-bottom
-           other-window
-           previous-line
-           next-line))
-  (advice-add command :after #'mp/pulse-line))
+(use-package rainbow-mode
+  :hook
+  (prog-mode . rainbow-mode))
 
 (provide 'init-ui)

@@ -1,3 +1,11 @@
+eln-cache/
+eshell/
+forge-database.sqlite
+image-dired/
+*.elc
+tryton/
+tutorial/
+.cache/
 .last-package-update-day
 .mc-lists.el
 games/

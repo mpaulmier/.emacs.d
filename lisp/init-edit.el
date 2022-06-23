@@ -17,7 +17,14 @@
   :bind (("M-p" . move-text-up)
          ("M-n" . move-text-down)))
 
-(setq-default major-mode 'text-mode
+(use-package subword
+  :diminish subword-mode
+  :init
+  (global-subword-mode 1))
+
+(setq-default show-trailing-whitespace t
+              truncate-lines t
+              major-mode 'text-mode
               fill-column 80
               tab-width 4
               indent-tabs-mode nil)

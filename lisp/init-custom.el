@@ -17,4 +17,21 @@
   "Mattplm's personal config's customization"
   :group 'convenience)
 
+(defcustom mp/org-directory (concat (getenv "HOME") "/Org/")
+  "Main org directory"
+  :group 'mp
+  :type 'string)
+
+(defcustom mp/no-stw-modes '(calendar-mode comint-mode help-mode markdown-mode)
+  "List of modes for which we wish to disable
+`show-trailing-whitespace'"
+  :group 'mp
+  :type '(repeat symbol))
+
+(defcustom mp/no-dtw-modes '(markdown-mode)
+  "List of modes for which we wish to save files without running
+`delete-trailing-whitespace'"
+  :group 'mp
+  :type '(repeat symbol))
+
 (provide 'init-custom)

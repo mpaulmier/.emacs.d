@@ -17,15 +17,10 @@
   :ensure nil
   :bind (("C-x C-d" . dired-jump)
          :map dired-mode-map
-         ("C-c o" . mp/dired-xdg-open-file))
+         ("C-c o" . mp/dired-xdg-open-file)
+         ("C-c b" . mp/backup-at-point))
   :custom (dired-listing-switches "-FlaGhv")
   :init
-  (put 'dired-find-alternate-file 'disabled nil)
-  :config
-  (defun mp/dired-xdg-open-file ()
-    "In dired, open the file named on this line."
-    (interactive)
-    (let* ((file (dired-get-filename nil t)))
-      (call-process "xdg-open" nil 0 nil file))))
+  (put 'dired-find-alternate-file 'disabled nil))
 
 (provide 'init-dired)

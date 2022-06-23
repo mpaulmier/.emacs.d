@@ -27,8 +27,10 @@
 (use-package prog
   :ensure nil
   :hook
+  (prog-mode . yas-minor-mode)
   (prog-mode . electric-pair-mode)
-  (prog-mode . highlight-indent-guides-mode))
+  (prog-mode . highlight-indent-guides-mode)
+  (prog-mode . company-mode))
 
 (use-package flycheck
   :ensure t
@@ -41,5 +43,7 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package dockerfile-mode)
 
 (provide 'init-prog)

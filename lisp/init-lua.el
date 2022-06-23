@@ -1,4 +1,4 @@
-;; Copyright (C) 2020  Matthias Paulmier
+;; Copyright (C) 2022  Matthias Paulmier
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,16 +13,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package markdown-mode
-  :bind (:map markdown-mode-map)
-  :hook (markdown-mode . mp/disable-stw-maybe))
+(use-package lua-mode
+  :ensure t
+  :hook
+  (lua-mode . electric-pair-mode)
+  :custom ((lua-indent-level 4)
+           (lua-indent-nested-block-content-align nil)))
 
-(use-package nxml-mode
-  :ensure nil
-  :mode "\\.\\(xml\\|launch\\|sdf\\|urdf\\|xacro\\)\\'"
-  :custom
-  (nxml-child-indent 4)
-  (nxml-attribute-indent 4)
-  (nxml-slash-auto-complete-flag t))
-
-(provide 'init-markup)
+(provide 'init-lua)

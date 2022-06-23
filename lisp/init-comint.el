@@ -15,6 +15,8 @@
 
 (use-package comint
   :ensure nil
-  :hook (comint-mode . mp/disable-show-trailing-whitespace))
+  :hook (comint-mode . mp/disable-stw-maybe)
+  :bind (:map comint-mode-map
+         ("C-l" . mp/comint-clear)))
 
 (provide 'init-comint)

@@ -33,7 +33,6 @@
   :ensure nil
   :after vertico
   :bind (:map vertico-map
-         ("RET" . vertico-directory-enter)
          ("M-DEL" . vertico-directory-delete-word))
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
@@ -43,24 +42,24 @@
 
 (use-package orderless
   :init
-  (setq completion-styles '(orderless)))
+  (setq completion-styles '(orderless))
+  (setq orderless-matching-styles '(orderless-literal orderless-regexp)))
 
 (use-package consult
   :bind (("M-y" . consult-yank-from-kill-ring)
-         ("M-g M-g" . consult-goto-line)
          ("C-x b" . consult-buffer)
          ("C-s" . consult-line)
          ("C-S-s" . consult-ripgrep)
-         ("C-S-x C-S-f" . consult-find)
+         ("C-S-x C-S-f" . project-find-file)
+         ([remap goto-line] . consult-goto-line)
          ([remap imenu] . consult-imenu))
   :custom
-  (consult-line-start-from-top t)
-  (consult-preview-key nil)
+  (consult-preview-key 'any)
   :config
   (setq consult-project-root-function
-        (lambda ()
-          (when-let (project (project-current))
-            (car (project-roots project))))))
+        #'(lambda ()
+            (when-let (project (project-current))
+              (car (project-roots project))))))
 
 (use-package save-hist
   :ensure nil

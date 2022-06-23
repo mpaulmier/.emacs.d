@@ -1,4 +1,4 @@
-;; Copyright (C) 2021  Matthias Paulmier
+;; Copyright (C) 2022  Matthias Paulmier
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,13 +13,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package multiple-cursors
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" .  mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)
-         ("M-<down-mouse-1>" . mc/add-cursor-on-click))
+(use-package project
+  :ensure nil
   :init
-  (global-unset-key (kbd "M-<down-mouse-1>")))
+  (dolist (item '((project-dired "Dired" "D")
+                  (project-kill-buffers "Kill all buffers" "k")
+                  (project-switch-to-buffer "Switch to Buffer" "b")))
+    (add-to-list 'project-switch-commands item t)))
 
-(provide 'init-mc)
+(provide 'init-project)

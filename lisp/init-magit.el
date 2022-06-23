@@ -24,18 +24,32 @@
   :custom
   ;; Maximum acceptable width for summary buffer
   (git-commit-summary-max-length 50)
+  (magit-bind-magit-project-status t)
+  :init
+  (require 'magit-extras)
   :config
   ;; full screen magit-status
   ;; From http://whattheemacsd.com/setup-magit.el-01.html
-  (defadvice magit-status (around magit-fullscreen activate)
+  (defun magit-status--ad-around (old-func &rest args)
     (window-configuration-to-register :magit-fullscreen)
-    ad-do-it
+    (apply old-func args)
     (delete-other-windows))
+
+  (dolist (fun '(magit-status magit-project-status))
+    (advice-add fun :around #'magit-status--ad-around))
 
   (defun mp/magit-quit-session ()
     "Restores the previous window configuration and kills the magit buffer"
     (interactive)
     (kill-buffer)
     (jump-to-register :magit-fullscreen)))
+
+(use-package blamer
+  :custom
+  (blamer-self-author-name . ("You"))
+  (blamer-force-truncate-long-line . nil)
+  (blamer-type 'visual)
+  :init
+  (global-blamer-mode 1))
 
 (provide 'init-magit)

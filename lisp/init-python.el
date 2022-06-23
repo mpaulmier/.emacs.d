@@ -17,25 +17,41 @@
   :ensure nil
   :hook
   (python-mode . flycheck-mode)
-  (python-mode . company-mode)
-  (python-mode . yas-minor-mode)
   :custom
   (python-check-command "flake8 --max-complexity 15")
   :bind (:map python-mode-map
          ("M-<right>" . python-indent-shift-right)
-         ("M-<left>" . python-indent-shift-left))
+         ("M-<left>" . python-indent-shift-left)
+         ("M-r" . python-debug-exception-dwim))
   :config
-  (setq flycheck-flake8-maximum-complexity 15))
+  (setq flycheck-flake8-maximum-complexity 15)
+  (setq flycheck-flake8rc ".flake8")
 
-(use-package lsp-python-ms
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp-deferred))))
+  ;; TODO: implement this
+  (defun python-debug-exception-dwim (&args rest)
+    "Surround region or line with a try-except block with rpdb in the
+except block to debug a suspect piece of code"
+    (interactive)
+    nil)
+  (python-skeleton-define method nil
+    "Function name: "
+    "@classmethod" \n
+    "def " str "(cls" ("Parameter, %s: "
+                       str) "):" \n
+                       "'''" - "'''" \n
+                       > _ \n))
+
+;; (use-package lsp-python-ms
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                          (require 'lsp-python-ms)
+;;                          (lsp-deferred)))
+;;   :custom (lsp-pyright-auto-import-completions nil))
 
 (use-package pyenv-mode
   :hook (python-mode . pyenv-mode))
 
-(use-package pyenv-mode-auto)
+(use-package pyenv-mode-auto
+  :ensure t)
 
 (provide 'init-python)

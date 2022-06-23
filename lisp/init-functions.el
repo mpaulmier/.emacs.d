@@ -13,13 +13,37 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 'init-custom)
+
+(defun mp/join-line-one-space ()
+  "A mix between join-line and only-one-space"
+  (interactive)
+  (save-excursion
+    (move-end-of-line nil)
+    (just-one-space -1)))
+
+(defun mp/increment-number-at-point (&optional arg)
+  (interactive)
+  (save-excursion
+    (save-match-data
+      (let ((by (if arg arg 1)))
+        (skip-chars-backward "0-9?-")
+        (or (looking-at "-*[0-9]+")
+            (error "No number at point"))
+        (replace-match (number-to-string (+ by (string-to-number (match-string 0)))))))))
+
+(defun mp/decrement-number-at-point (&optional arg)
+  (interactive)
+  (let ((by (if arg arg 1)))
+    (mp/increment-number-at-point (- by))))
+
 (defun mp/browse-emacs-conf-dir ()
   (interactive)
   (ido-find-file-in-dir (concat user-emacs-directory "lisp/")))
 
 (defun mp/browse-org-dir ()
   (interactive)
-  (ido-find-file-in-dir (concat (getenv "HOME") "/Org/")))
+  (ido-find-file-in-dir mp/org-directory))
 
 (defun mp/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
@@ -38,16 +62,17 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(defun mp/save-buffer-without-dtw ()
-  "Save current buffer without running the `delete-trailing-whitespace' hook"
-  (interactive)
-  (let ((should-dtw (memq 'delete-trailing-whitespace before-save-hook)))
-    (if should-dtw
-        (progn
-          (remove-hook 'before-save-hook 'delete-trailing-whitespace)
-          (save-buffer)
-          (add-hook 'before-save-hook 'delete-trailing-whitespace))
-      (save-buffer))))
+(defun mp/delete-trailing-whitespace-maybe ()
+  "Run `delete-trailing-whitespace' when saving unless current mode
+is in `no-dtw-modes'"
+  (when (not (apply 'derived-mode-p mp/no-dtw-modes))
+    (delete-trailing-whitespace)))
+
+(defun mp/disable-stw-maybe ()
+  "Set `show-trailing-whitespace' to nil for modes defined in
+`no-stw-modes'"
+  (when (apply 'derived-mode-p mp/no-stw-modes)
+    (setq show-trailing-whitespace nil)))
 
 (defun mp/save-executable-buffer ()
   (save-excursion
@@ -60,7 +85,6 @@
                         (logior (file-modes buffer-file-name) #o100))
         (message (format "Made %s executable" buffer-file-name))))))
 
-
 ;; From https://github.com/magnars/.emacs.d/blob/master/defuns/lisp-defuns.el
 (defun mp/eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -72,13 +96,60 @@
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
 
-(defun mp/pulse-line (&rest _)
-  "Pulse the current line."
-  (pulse-momentary-highlight-one-line (point)))
+(defun mp/comint-clear ()
+  (interactive)
+  (let ((orig-ln (line-number-at-pos))
+        (col (current-column))
+        (cmd (progn (end-of-buffer)
+                    (move-end-of-line nil)
+                    (set-mark (point))
+                    (move-beginning-of-line nil)
+                    (buffer-substring (region-beginning) (region-end))))
+        (after-ln (line-number-at-pos)))
+    (delete-region (region-beginning) (region-end))
+    (comint-clear-buffer)
+    (insert cmd)
+    (if (= orig-ln after-ln)
+        (move-to-column col t)
+      (move-beginning-of-line nil))))
 
-(defun mp/disable-show-trailing-whitespace ()
-  "Use this as hook to disable show-trailing-whitespace locally"
-  (setq show-trailing-whitespace nil))
+(defun mp/dired-xdg-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
+
+(defun mp/get-date nil
+  (interactive)
+  (shell-command-to-string "echo -n $(date --iso)"))
+
+(defun mp/backup-at-point nil
+  "In dired, move the current file or directory at point to a new
+backup with name `<current_name>_$(date --iso)'"
+  (interactive)
+  (let ((filename (dired-file-name-at-point)))
+    (dired-rename-file filename (concat filename (mp/get-date)) nil)
+    (revert-buffer)))
+
+(defun org-copy-region-as-markdown ()
+  "Copy the region (in Org) to the system clipboard as Markdown.
+From: http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard"
+  (interactive)
+  (if (use-region-p)
+      (let* ((region
+	      (buffer-substring-no-properties
+		      (region-beginning)
+		      (region-end)))
+	     (markdown
+	      (org-export-string-as region 'md t '(:with-toc nil))))
+	(gui-set-selection 'CLIPBOARD markdown))))
+
+(defun mp/toggle-presentation-view ()
+  "Function to run when presenting emacs to users not familliar with my setup"
+  (interactive)
+  (modus-themes-toggle)
+  (global-nlinum-mode 'toggle)
+  (global-hl-line-mode 'toggle))
 
 ;; Macros
 

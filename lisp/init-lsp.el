@@ -21,7 +21,8 @@
   :custom
   (lsp-diagnostics-provider :capf)
   (lsp-headerline-breadcrumb-enable t)
-  (lsp-headerline-breadcrumb-segments '(project file symbols))
+  (lsp-headerline-breadcrumb-segments '(project path-up-to-project symbols))
+  (lsp-ui-doc-show-with-mouse nil)
   (lsp-lens-enable nil)
   (lsp-keymap-prefix "C-c l"))
 
