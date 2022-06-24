@@ -13,10 +13,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; Note: In daemon mode, the font is not set properly in the very
-;; first frame spawned. To work arount that, dismiss the first frame
-;; and spawn a new one.
-
 (require 'init-functions)
 
 (use-package faces
