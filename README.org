@@ -49,12 +49,7 @@ This is a special view for when I share my screen with someone. For now, it
 simply toggles the modus-theme from =modus-oprandi= to =modus-vivendi= (because
 people seem to like to complain about light themes 😉), enables =nlinum-mode=
 and =hl-line-mode= to make it clearer where my cursor is in the buffer to the
-viewer. See [[file:lisp/init-functions.el::defun mp/toggle-presentation-view ()
- "Function to run when presenting emacs to users not familliar with my setup"
- (interactive)
- (modus-themes-toggle)
- (global-nlinum-mode 'toggle)
- (global-hl-line-mode 'toggle)][this function]].
+viewer. See [[file:lisp/init-functions.el::defun mp/toggle-presentation-view (][this function]].
 
 * License
 
