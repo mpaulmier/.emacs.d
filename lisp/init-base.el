@@ -77,6 +77,9 @@
 
 (use-package lice)
 
+(use-package ace-window
+  :bind ("C-x o" . ace-window))
+
 (use-package nlinum
   :custom (nlinum-format " %d "))
 
