@@ -15,7 +15,7 @@
 
 (use-package ibuffer
   :ensure nil
-  :config
+  :init
   (fset 'list-buffers 'ibuffer))
 
 (provide 'init-ibuffer)
