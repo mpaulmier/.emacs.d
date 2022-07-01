@@ -44,6 +44,7 @@
       (setq default-frame-alist '((font . "Iosevka"))))))
 
 (use-package rainbow-mode
+  :diminish rainbow-mode
   :hook
   (prog-mode . rainbow-mode))
 
