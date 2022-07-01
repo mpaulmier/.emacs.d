@@ -145,9 +145,11 @@ From: http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard"
 	(gui-set-selection 'CLIPBOARD markdown))))
 
 (defun mp/toggle-presentation-view ()
-  "Function to run when presenting emacs to users not familliar with my setup"
+  "Function to run when presenting emacs to users not familliar with my setup
+With `C-u' prefix, don't change the theme configuration"
   (interactive)
-  (modus-themes-toggle)
+  (if (null current-prefix-arg)
+      (modus-themes-toggle))
   (global-nlinum-mode 'toggle)
   (global-hl-line-mode 'toggle))
 
