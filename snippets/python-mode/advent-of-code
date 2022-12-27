@@ -1,17 +1,21 @@
 # -*- mode: snippet -*-
 # name: Advent of code template
-# key: advent-of-code
+# key: aoc
 # --
+def part1(inpt: str) -> int:
+    return 0
 
-#!/usr/bin/env python3
 
-def sol1(lines):
-    pass
+def part2(inpt: str) -> int:
+    return 0
 
-def sol2(lines):
-    pass
 
-with open("input.txt") as f:
-    lines = f.readlines()
-    print("Solution 1: {}".format(sol1(lines)))
-    print("Solution 2: {}".format(sol2(lines)))
+def main() -> None:
+    with open('inputs/${1:`(substring (file-name-sans-extension (buffer-file-name)) -1)`}', 'r') as f:
+        content = f.read()
+        print(f'Part 1: {part1(content)}')
+        print(f'Part 2: {part2(content)}')
+
+
+if __name__ == '__main__':
+    main()

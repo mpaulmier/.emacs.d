@@ -13,16 +13,27 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package company
-  :diminish company-mode
-  :after eglot
-  :bind (:map company-active-map
-         ("<tab>" . nil)
-         ("TAB" . nil)
-         ("M-<tab>" . comapny-complete-common-or-cycle)
-         ("M-<tab>" . company-complete-selection))
-  :custom
-  (company-minimum-prefix-length 2)
-  (company-idle-delay .01))
 
-(provide 'init-company)
+(use-package clojure-mode
+  :mode "\\.clj\\'"
+  :hook
+  (clojure-mode . enable-paredit-mode)
+  (clojure-mode . subword-mode))
+
+(use-package cider
+  :after clojure-mode
+  :hook
+  (cider-mode . eldoc-mode)
+  (cider-repl-mode . paredit-mode)
+  (cider-repl-mode . company-mode)
+  :bind (:map clojure-mode-map
+              ("C-x C-e" . cider-eval-last-sexp)
+              ("C-c C-k" . cider-load-buffer)
+              ("C-c C-c" . cider-eval-defun-at-point))
+  :custom
+  (cider-show-error-buffer t)
+  (cider-auto-select-error-buffer t)
+  (cider-repl-history-file "~/.emacs.d/cider-history")
+  (cider-repl-wrap-history t))
+
+(provide 'init-clojure)

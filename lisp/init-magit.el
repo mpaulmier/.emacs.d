@@ -50,6 +50,7 @@
   (blamer-force-truncate-long-line . nil)
   (blamer-type 'visual)
   :init
-  (global-blamer-mode 1))
+  ;; (global-blamer-mode 1)
+  )
 
 (provide 'init-magit)

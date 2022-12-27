@@ -22,7 +22,10 @@
          ("C-c o" . #'mp/browse-org-dir)
          ("C-c x w" . #'org-copy-region-as-markdown))
   :custom
-  (org-export-backends '(ascii html icalendar latex odt md))
+  (org-src-preserve-indentation nil)
+  (org-edit-src-content-indentation 0)
+  (org-src--content-indentation nil)
+  (org-export-backends '(ascii html icalendar latex odt md org))
   (org-startup-folded 'overview)
   (org-log-into-drawer t)
   (org-todo-keywords '("TODO(t)" "WAIT(w@)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c@)"))

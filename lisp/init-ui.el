@@ -19,22 +19,37 @@
   :ensure nil
   :bind (("C-c t" . modus-themes-toggle)
          ("C-c p" . mp/toggle-presentation-view))
+(use-package modus-themes
+  :ensure t
   :custom
   (modus-themes-bold-constructs t)
   (modus-themes-italic-constructs t)
   (modus-themes-syntax '(green-strings))
   (modus-themes-prompts '(bold intense))
   (modus-themes-bold-constructs t)
-  (modus-themes-completions
-   '((matches . (extrabold background intense))
-     (selection . (semibold accented intense))
-     (popup . (accented))))
+  (modus-themes-completions '((matches . (extrabold))
+                              (selection . (semibold accented))
+                              (popup . (accented intense))))
   (modus-themes-italic-constructs t)
   (modus-themes-mode-line '(accented borderless padded))
   (modus-themes-paren-match '(bold intense))
   (modus-themes-region '(no-extend accented))
   (modus-themes-slanted-constructs t)
   (modus-themes-hl-line '(intense))
+  :config
+  (setq modus-themes-operandi-color-overrides
+      '((bg-main . "#fffdf6")
+        (bg-dim . "#fffde2")
+        (bg-alt . "#fffdaa"))
+      modus-themes-vivendi-color-overrides
+      '((bg-main . "#25152a")
+        (bg-dim . "#2a1930")
+        (bg-alt . "#382443")))
+  (load-theme 'modus-operandi t))
+
+(use-package faces
+  :ensure nil
+  :bind ("C-c p" . mp/toggle-presentation-view)
   :custom-face
   (mode-line ((t (:underline nil))))
   :config
@@ -45,7 +60,6 @@
         ;; more colours for `modus-vivendi'...
         ))
   (progn
-    (load-theme 'modus-operandi t)
     (when (member "Iosevka" (font-family-list))
       (setq default-frame-alist '((font . "Iosevka"))))))
 

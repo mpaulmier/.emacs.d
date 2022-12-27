@@ -29,6 +29,6 @@
 (use-package lisp-mode
   :ensure nil
   :diminish lisp-mode
-  :mode "\\.cl\\|\\.lisp\\'")
+  :mode "\\.cl$\\|\\.lisp\\'")
 
 (provide 'init-lisp)

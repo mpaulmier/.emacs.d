@@ -13,26 +13,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package python
-  :ensure nil
-  :hook
-  (python-mode . flymake-start)
-  (python-mode . python-ts-mode)
-  (python-mode . eglot-ensure)
-  :bind (:map python-mode-map
-              ("M-<right>" . python-indent-shift-right)
-              ("M-<left>" . python-indent-shift-left)
-              ("C-c C-t d" . python-skeleton-method))
-  :config
-  (python-skeleton-define method nil
-    "Function name: "
-    "@classmethod" \n
-    "def " str "(cls" ("Parameter, %s: "
-                       str) "):" \n
-                       "'''" - "'''" \n
-                       > _ \n))
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.\\(tsx\\)'''")
 
-(use-package pyenv-mode
-  :hook (python-mode . pyenv-mode))
-
-(provide 'init-python)
+(provide 'init-js)

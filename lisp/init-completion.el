@@ -56,7 +56,8 @@
          ("C-S-s" . consult-ripgrep)
          ("C-S-x C-S-f" . project-find-file)
          ([remap goto-line] . consult-goto-line)
-         ([remap imenu] . consult-imenu))
+         ([remap imenu] . consult-imenu)
+         ([remap apropos-command] . consult-apropos))
   :custom
   (consult-preview-key 'any)
   :config

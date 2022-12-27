@@ -13,26 +13,17 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package python
-  :ensure nil
-  :hook
-  (python-mode . flymake-start)
-  (python-mode . python-ts-mode)
-  (python-mode . eglot-ensure)
-  :bind (:map python-mode-map
-              ("M-<right>" . python-indent-shift-right)
-              ("M-<left>" . python-indent-shift-left)
-              ("C-c C-t d" . python-skeleton-method))
-  :config
-  (python-skeleton-define method nil
-    "Function name: "
-    "@classmethod" \n
-    "def " str "(cls" ("Parameter, %s: "
-                       str) "):" \n
-                       "'''" - "'''" \n
-                       > _ \n))
+(use-package dart-mode
+  ;; Optional
+  :hook ((dart-mode . flycheck-mode)
+         (dart-mode . lsp)
+         (dart-mode . flutter-test-mode)))
 
-(use-package pyenv-mode
-  :hook (python-mode . pyenv-mode))
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  :custom
+  (flutter-sdk-path "/opt/flutter/"))
 
-(provide 'init-python)
+(provide 'init-flutter)

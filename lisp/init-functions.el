@@ -153,7 +153,7 @@ configuration (from light to dark and vice-versa)"
   (if (equal '(4) current-prefix-arg)
       (modus-themes-toggle))
   (blamer-mode 'toggle)
-  (global-nlinum-mode 'toggle)
+  (display-line-numbers-mode 'toggle)
   (global-hl-line-mode 'toggle))
 
 (defun mp/get-file-name (filename &optional wilcards)
