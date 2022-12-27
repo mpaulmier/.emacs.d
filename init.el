@@ -22,6 +22,9 @@
 
 (require 'init-base)
 (require 'init-ui)
+(require 'init-embark)
+
+(require 'init-tree-sitter)
 
 (require 'init-calendar)
 (require 'init-comint)
@@ -29,8 +32,7 @@
 (require 'init-completion)
 (require 'init-dired)
 (require 'init-edit)
-(require 'init-embark)
-(require 'init-flycheck)
+(require 'init-http)
 (require 'init-ibuffer)
 (require 'init-lisp)
 (require 'init-lsp)
@@ -43,4 +45,5 @@
 (require 'init-python)
 (require 'init-rust)
 (require 'init-which-key)
+(require 'init-work)
 (require 'init-yasnippet)

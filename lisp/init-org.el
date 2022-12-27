@@ -27,18 +27,15 @@
   (org-log-into-drawer t)
   (org-todo-keywords '("TODO(t)" "WAIT(w@)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c@)"))
   (org-capture-templates
-   `(("t" "Task")
-     ("tt" "New Task" entry (file ,(concat mp/org-directory "inbox.org"))
-      "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
-     ("c" "Call")
-     ("cc")))
+   `(("t" "New Task" entry (file ,(concat mp/org-directory "inbox.org"))
+      "* TODO %?\n %U\n %a\n %i" :empty-lines 1)))
   :init
   (require 'org-capture)
   :config
   (setq-default org-agenda-files '()
                 initial-major-mode 'org-mode
                 initial-scratch-message "#+TITLE: Scratch buffer\n\n")
-  (dolist (file '("todo.org" "habits.org"))
+  (dolist (file '("habits.org"))
     (add-to-list 'org-agenda-files (concat mp/org-directory file))))
 
 (use-package org-bullets

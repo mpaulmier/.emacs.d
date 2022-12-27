@@ -15,10 +15,10 @@
 
 (use-package project
   :ensure nil
-  :init
-  (dolist (item '((project-dired "Dired" "D")
-                  (project-kill-buffers "Kill all buffers" "k")
-                  (project-switch-to-buffer "Switch to Buffer" "b")))
+  :config
+  (dolist (item '((project-dired "Dired")
+                  (project-kill-buffers "Kill all buffers")
+                  (project-switch-to-buffer "Switch to Buffer")))
     (add-to-list 'project-switch-commands item t)))
 
 (provide 'init-project)

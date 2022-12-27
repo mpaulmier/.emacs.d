@@ -15,13 +15,12 @@
 
 (use-package company
   :diminish company-mode
+  :after eglot
   :bind (:map company-active-map
          ("<tab>" . nil)
          ("TAB" . nil)
          ("M-<tab>" . comapny-complete-common-or-cycle)
-         ("M-<tab>" . company-complete-selection)
-         :map lsp-mode-map
-         ("M-<tab>" . company-indent-or-complete-common))
+         ("M-<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 2)
   (company-idle-delay .01))

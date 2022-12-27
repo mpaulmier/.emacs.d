@@ -15,8 +15,9 @@
 
 (require 'init-custom)
 
+;; TODO: I think this actually exists in emacs, look it up and maybe remove this
 (defun mp/join-line-one-space ()
-  "A mix between join-line and only-one-space"
+  "A mix between join-line and just-one-space"
   (interactive)
   (save-excursion
     (move-end-of-line nil)
@@ -72,7 +73,7 @@ is in `no-dtw-modes'"
   "Set `show-trailing-whitespace' to nil for modes defined in
 `no-stw-modes'"
   (when (apply 'derived-mode-p mp/no-stw-modes)
-    (setq show-trailing-whitespace nil)))
+    (setq-local show-trailing-whitespace nil)))
 
 (defun mp/save-executable-buffer ()
   (save-excursion
@@ -145,13 +146,31 @@ From: http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard"
 	(gui-set-selection 'CLIPBOARD markdown))))
 
 (defun mp/toggle-presentation-view ()
-  "Function to run when presenting emacs to users not familliar with my setup
-With `C-u' prefix, don't change the theme configuration"
+  "Function to run when presenting emacs to users not familliar
+with my setup With `C-u' prefix, change the theme
+configuration (from light to dark and vice-versa)"
   (interactive)
-  (if (null current-prefix-arg)
+  (if (equal '(4) current-prefix-arg)
       (modus-themes-toggle))
+  (blamer-mode 'toggle)
   (global-nlinum-mode 'toggle)
   (global-hl-line-mode 'toggle))
+
+(defun mp/get-file-name (filename &optional wilcards)
+  "Get FILENAME without path"
+  (interactive
+   (find-file-read-args "Get filename: "
+                        (confirm-nonexistent-file-or-buffer)))
+  (replace-regexp-in-string ".*/\\(.*\\)" "\\1" filename))
+
+(defun mp/insert-file-name (filename &optional wildcards)
+  "Insert FILENAME at point without path
+
+See `mp/insert-file-name'"
+  (interactive
+   (find-file-read-args "Insert filename: "
+                        (confirm-nonexistent-file-or-buffer)))
+  (insert (mp/get-file-name filename wildcards)))
 
 ;; Macros
 

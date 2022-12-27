@@ -14,8 +14,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package markdown-mode
-  :bind (:map markdown-mode-map)
-  :hook (markdown-mode . mp/disable-stw-maybe))
+  :bind (:map markdown-mode-map))
 
 (use-package nxml-mode
   :ensure nil

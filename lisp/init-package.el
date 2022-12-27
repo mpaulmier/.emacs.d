@@ -18,6 +18,7 @@
   (package-initialize))
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (unless (package-installed-p 'use-package)

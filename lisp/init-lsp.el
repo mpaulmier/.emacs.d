@@ -13,24 +13,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package lsp-mode
-  :diminish lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook
-  (lsp-mode . lsp-enable-which-key-integration)
-  :custom
-  (lsp-diagnostics-provider :capf)
-  (lsp-headerline-breadcrumb-enable t)
-  (lsp-headerline-breadcrumb-segments '(project path-up-to-project symbols))
-  (lsp-ui-doc-show-with-mouse nil)
-  (lsp-lens-enable nil)
-  (lsp-keymap-prefix "C-c l"))
-
-(use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode)
-  :after lsp-mode
-  :custom
-  (lsp-ui-doc-show-with-cursor nil)
-  (lsp-ui-doc-position 'bottom))
+(use-package eglot
+  :commands eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               `(python-mode
+                 . ,(eglot-alternatives '(("pyright-langserver" "--stdio")))))
+  (setq eglot-autoshutdown t))
 
 (provide 'init-lsp)

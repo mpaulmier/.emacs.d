@@ -21,14 +21,18 @@
 
 (use-package faces
   :ensure nil
-  :bind ("C-c p" . mp/toggle-presentation-view)
+  :bind (("C-c t" . modus-themes-toggle)
+         ("C-c p" . mp/toggle-presentation-view))
   :custom
   (modus-themes-bold-constructs t)
   (modus-themes-italic-constructs t)
   (modus-themes-syntax '(green-strings))
   (modus-themes-prompts '(bold intense))
   (modus-themes-bold-constructs t)
-  (modus-themes-completions 'opinionated)
+  (modus-themes-completions
+   '((matches . (extrabold background intense))
+     (selection . (semibold accented intense))
+     (popup . (accented))))
   (modus-themes-italic-constructs t)
   (modus-themes-mode-line '(accented borderless padded))
   (modus-themes-paren-match '(bold intense))
@@ -38,14 +42,27 @@
   :custom-face
   (mode-line ((t (:underline nil))))
   :config
+  (setq modus-themes-vivendi-color-overrides
+      '((bg-main . "#25152a")
+        (bg-dim . "#2a1930")
+        (bg-alt . "#382443")
+        ;; more colours for `modus-vivendi'...
+        ))
   (progn
     (load-theme 'modus-operandi t)
     (when (member "Iosevka" (font-family-list))
       (setq default-frame-alist '((font . "Iosevka"))))))
 
+(use-package nlinum
+  :custom (nlinum-format " %d "))
+
 (use-package rainbow-mode
   :diminish rainbow-mode
   :hook
   (prog-mode . rainbow-mode))
+
+(use-package unicode-fonts
+   :config
+   (unicode-fonts-setup))
 
 (provide 'init-ui)

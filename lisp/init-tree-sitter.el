@@ -13,25 +13,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(defgroup mp nil
-  "Mattplm's personal config's customization"
-  :group 'convenience)
+(use-package treesit
+  :ensure nil
+  :init
+  (setq treesit-extra-load-path '("/home/matthias.paulmier/.local/share/tree-sitter-module/dist/")))
 
-(defcustom mp/org-directory (concat (getenv "HOME") "/Org/")
-  "Main org directory"
-  :group 'mp
-  :type 'string)
-
-(defcustom mp/no-stw-modes '(calendar-mode comint-mode help-mode markdown-mode tabulated-list-mode gud-mode)
-  "List of modes for which we wish to disable
-`show-trailing-whitespace'"
-  :group 'mp
-  :type '(repeat symbol))
-
-(defcustom mp/no-dtw-modes '(markdown-mode nxml-mode csv-mode)
-  "List of modes for which we wish to save files without running
-`delete-trailing-whitespace'"
-  :group 'mp
-  :type '(repeat symbol))
-
-(provide 'init-custom)
+(provide 'init-tree-sitter)

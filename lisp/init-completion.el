@@ -13,6 +13,10 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-package files
+  :ensure nil
+  :bind ("C-x C-i" . mp/insert-file-name))
+
 (use-package vertico
   :custom
   (vertico-cycle t)
@@ -42,7 +46,7 @@
 
 (use-package orderless
   :init
-  (setq completion-styles '(orderless))
+  (setq completion-styles '(orderless flex))
   (setq orderless-matching-styles '(orderless-literal orderless-regexp)))
 
 (use-package consult
@@ -60,6 +64,12 @@
         #'(lambda ()
             (when-let (project (project-current))
               (car (project-roots project))))))
+
+(use-package flymake
+  :ensure nil
+  :after consult
+  :bind (:map flymake-mode-map
+         ("C-c f" . consult-flymake)))
 
 (use-package save-hist
   :ensure nil

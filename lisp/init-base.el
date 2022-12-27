@@ -42,7 +42,12 @@
       vc-follow-symlinks t)
 
 (setq-default show-trailing-whitespace t
-              truncate-lines t)
+              truncate-lines t
+              abbrev-mode t)
+
+(diminish 'abbrev-mode)
+
+(add-hook 'text-mode-hook #'mp/disable-stw-maybe)
 
 (blink-cursor-mode -1)
 (delete-selection-mode t)
@@ -60,6 +65,8 @@
 (when (file-exists-p mp/custom-file)
   (load-file mp/custom-file))
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; Global key bindings that cannot be attributed to specific packages
 (global-set-key (kbd "<f5>") #'revert-buffer-quick)
@@ -74,6 +81,7 @@
 				    (if truncate-lines (scroll-right 1))))
 (global-set-key (kbd "<mouse-7>") (lambda () (interactive)
 				    (if truncate-lines (scroll-left 1))))
+(global-set-key (kbd "C-x w") #'count-words)
 
 (use-package lice)
 

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Add scenario to test suite in tryton's test_module
+# key: add_scenario
+# --
+
+suite.addTests(doctest.DocFileSuite(
+        '${1:`(call-interactively 'mp/get-file-name)`}',
+        tearDown=doctest_teardown, encoding='utf-8',
+        optionflags=doctest.REPORT_ONLY_FIRST_FAILURE))$0

@@ -24,7 +24,7 @@
   :ensure nil
   :hook (prog-mode . hs-minor-mode))
 
-(use-package prog
+(use-package prog-mode
   :ensure nil
   :hook
   (prog-mode . yas-minor-mode)
@@ -32,14 +32,9 @@
   (prog-mode . highlight-indent-guides-mode)
   (prog-mode . company-mode))
 
-(use-package flycheck
-  :ensure t
-  :init
-  ;; Run flycheck on the entire buffer when opening a file
-  ;; This allows seeing the errors on the file without having to modify it first
-  (add-hook 'flycheck-mode-hook
-            #'(lambda ()
-                (flycheck-buffer))))
+(use-package flymake
+  :ensure nil
+  )
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
