@@ -13,6 +13,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Mini buffer completions
+
 (use-package files
   :ensure nil
   :bind ("C-x C-i" . mp/insert-file-name))
@@ -76,5 +78,16 @@
   :ensure nil
   :init
   (savehist-mode 1))
+
+;;; In buffer completions
+
+(use-package corfu
+  :hook
+  (corfu-mode . corfu-popupinfo-mode)
+  :custom
+  (corfu-auto t)
+  (corfu-popupinfo-delay 0.1)
+  :init
+  (global-corfu-mode))
 
 (provide 'init-completion)
