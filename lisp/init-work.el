@@ -13,7 +13,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(require 'init-functions)
 (defun compute-ssn (ssn)
   "Takes the first 13 characters of a french social security number
 and returns the full 15 chars social security number with its key"

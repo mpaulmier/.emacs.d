@@ -13,9 +13,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(require 'init-const)
-(require 'init-functions)
-
 (setq inhibit-startup-message t)
 (setq auto-save-default nil
       backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))

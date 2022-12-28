@@ -18,6 +18,10 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+(require 'init-custom)
+(require 'init-const)
+(require 'init-functions)
+
 (require 'init-package)
 
 (require 'init-base)
@@ -27,23 +31,16 @@
 (require 'init-tree-sitter)
 
 (require 'init-calendar)
-(require 'init-clojure)
 (require 'init-comint)
 (require 'init-completion)
 (require 'init-dired)
 (require 'init-edit)
 (require 'init-http)
-(require 'init-flutter)
 (require 'init-ibuffer)
-(require 'init-js)
-(require 'init-lisp)
-(require 'init-lsp)
-(require 'init-lua)
 (require 'init-magit)
 (require 'init-markup)
 (require 'init-org)
 (require 'init-prog)
 (require 'init-project)
-(require 'init-python)
 (require 'init-which-key)
 (require 'init-work)
