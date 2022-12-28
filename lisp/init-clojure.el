@@ -25,7 +25,6 @@
   :hook
   (cider-mode . eldoc-mode)
   (cider-repl-mode . paredit-mode)
-  (cider-repl-mode . company-mode)
   :bind (:map clojure-mode-map
               ("C-x C-e" . cider-eval-last-sexp)
               ("C-c C-k" . cider-load-buffer)

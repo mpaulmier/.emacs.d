@@ -45,7 +45,5 @@
 (require 'init-prog)
 (require 'init-project)
 (require 'init-python)
-(require 'init-rust)
 (require 'init-which-key)
 (require 'init-work)
-(require 'init-yasnippet)

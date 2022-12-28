@@ -27,10 +27,8 @@
 (use-package prog-mode
   :ensure nil
   :hook
-  (prog-mode . yas-minor-mode)
   (prog-mode . electric-pair-mode)
-  (prog-mode . highlight-indent-guides-mode)
-  (prog-mode . company-mode))
+  (prog-mode . highlight-indent-guides-mode))
 
 (use-package flymake
   :ensure nil
