@@ -34,4 +34,10 @@
   :group 'mp
   :type '(repeat symbol))
 
+(defcustom mp/tree-sitter-dir nil
+  "The directory for tree-sitter parsers. If not set, don't use
+tree-sitter"
+  :group 'mp
+  :type 'string)
+
 (provide 'init-custom)

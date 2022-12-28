@@ -30,13 +30,118 @@
   (prog-mode . electric-pair-mode)
   (prog-mode . highlight-indent-guides-mode))
 
+(use-package eglot
+  :commands eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               `(python-mode
+                 . ,(eglot-alternatives '(("pyright-langserver" "--stdio")))))
+  (setq eglot-autoshutdown t))
+
 (use-package flymake
-  :ensure nil
-  )
+  :ensure nil)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package dockerfile-mode)
+
+
+;; Programming languages
+
+(use-package clojure-mode
+  :mode "\\.clj\\'"
+  :hook
+  (clojure-mode . enable-paredit-mode)
+  (clojure-mode . subword-mode))
+
+(use-package cider
+  :after clojure-mode
+  :hook
+  (cider-mode . eldoc-mode)
+  (cider-repl-mode . paredit-mode)
+  :bind (:map clojure-mode-map
+              ("C-x C-e" . cider-eval-last-sexp)
+              ("C-c C-k" . cider-load-buffer)
+              ("C-c C-c" . cider-eval-defun-at-point))
+  :custom
+  (cider-show-error-buffer t)
+  (cider-auto-select-error-buffer t)
+  (cider-repl-history-file "~/.emacs.d/cider-history")
+  (cider-repl-wrap-history t))
+
+(use-package dart-mode
+  ;; Optional
+  :hook ((dart-mode . flycheck-mode)
+         (dart-mode . eglot-ensure)
+         (dart-mode . flutter-test-mode)))
+
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  :custom
+  (flutter-sdk-path "/opt/flutter/"))
+
+(use-package js-mode
+  :ensure nil
+  :init
+  (when (not (null mp/tree-sitter-dir))
+    (add-hook 'js-mode 'js-ts-mode)))
+
+(use-package typescript-mode
+  :mode "\\.\\(tsx\\)'''"
+  :init
+  (when (not (null mp/tree-sitter-dir))
+    (add-hook 'typescript-mode 'typescript-ts-mode)))
+
+(use-package paredit
+  :diminish paredit-mode
+  :hook ((lisp-mode emacs-lisp-mode) . paredit-mode)
+  :init
+  (setq show-paren-style 'paren))
+
+(use-package slime
+  :if (executable-find "sbcl")
+  :config
+  (load (expand-file-name "~/.quicklisp/slime-helper.el"))
+  (setq inferior-lisp-program "/usr/bin/sbcl"
+        slime-contribs '(slime-fancy)))
+
+(use-package lisp-mode
+  :ensure nil
+  :diminish lisp-mode
+  :mode "\\.cl$\\|\\.lisp\\'")
+
+(use-package lua-mode
+  :ensure t
+  :hook
+  (lua-mode . electric-pair-mode)
+  :custom ((lua-indent-level 4)
+           (lua-indent-nested-block-content-align nil)))
+
+(use-package python
+  :ensure nil
+  :hook
+  (python-mode . flymake-start)
+  (python-mode . eglot-ensure)
+  :bind (:map python-mode-map
+              ("M-<right>" . python-indent-shift-right)
+              ("M-<left>" . python-indent-shift-left)
+              ("C-c C-t d" . python-skeleton-method))
+  :init
+  (when (not (null mp/tree-sitter-dir))
+    (add-hook 'python-mode 'python-ts-mode))
+  :config
+  (python-skeleton-define method nil
+    "Function name: "
+    "@classmethod" \n
+    "def " str "(cls" ("Parameter, %s: "
+                       str) "):" \n
+    "'''" - "'''" \n
+    > _ \n))
+
+(use-package pyenv-mode
+  :hook (python-mode . pyenv-mode))
 
 (provide 'init-prog)
