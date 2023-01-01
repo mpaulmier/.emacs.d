@@ -35,15 +35,15 @@
   (modus-themes-region '(no-extend accented))
   (modus-themes-slanted-constructs t)
   (modus-themes-hl-line '(intense))
-  :config
-  (setq modus-themes-operandi-color-overrides
-	    '((bg-main . "#fffdf6")
-          (bg-dim . "#fffde2")
-          (bg-alt . "#fffdaa"))
-	    modus-themes-vivendi-color-overrides
-	    '((bg-main . "#25152a")
-          (bg-dim . "#2a1930")
-          (bg-alt . "#382443")))
+  :init
+  (setq modus-operandi-palette-overrides
+        '((bg-main "#fffdf6")
+          (bg-dim "#fffde2")
+          (bg-alt "#fffdaa"))
+        modus-vivendi-palette-overrides
+        '((bg-main "#25152a")
+          (bg-dim "#2a1930")
+          (bg-alt "#382443")))
   (load-theme 'modus-operandi t))
 
 (use-package faces
@@ -62,7 +62,8 @@
     (when (member "Iosevka" (font-family-list))
       (setq default-frame-alist '((font . "Iosevka"))))))
 
-(use-package nlinum
+(use-package simple
+  :ensure nil
   :custom (nlinum-format " %d "))
 
 (use-package rainbow-mode

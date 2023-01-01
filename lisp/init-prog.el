@@ -144,4 +144,16 @@
 (use-package pyenv-mode
   :hook (python-mode . pyenv-mode))
 
+(use-package css-mode
+  :ensure nil
+  :init
+  (when (not (null mp/tree-sitter-dir))
+    (add-hook 'css-mode 'css-ts-mode)))
+
+(use-package shell
+  :ensure nil
+    :init
+  (when (not (null mp/tree-sitter-dir))
+    (add-hook 'bash-mode 'bash-ts-mode)))
+
 (provide 'init-prog)

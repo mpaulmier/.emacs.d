@@ -16,6 +16,6 @@
 (use-package treesit
   :ensure nil
   :init
-  (setq treesit-extra-load-path mp/tree-sitter-dir))
+  (setq treesit-extra-load-path (list mp/tree-sitter-dir)))
 
 (provide 'init-tree-sitter)
