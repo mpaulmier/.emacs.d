@@ -1,4 +1,4 @@
-;; Copyright (C) 2022  Matthias Paulmier
+;; Copyright (C) 2023  Matthias Paulmier
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -13,10 +13,24 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package treesit
-  :ensure nil
-  :defer nil
-  :init
-  (setq treesit-extra-load-path (list mp/tree-sitter-dir)))
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :custom
+  (yas-snippet-dirs '("~/.config/emacs/snippets"))
+  :config
+  (yas-global-mode 1))
 
-(provide 'init-tree-sitter)
+(use-package tempel
+  :bind (("M-+" . tempel-complete)
+         ("M-*" . tempel-insert))
+  :init
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions
+                (cons #'tempel-complete
+                      completion-at-point-functions)))
+
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf))
+
+
+(provide 'init-snippets)

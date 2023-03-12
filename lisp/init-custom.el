@@ -15,7 +15,8 @@
 
 (defgroup mp nil
   "Mattplm's personal config's customization"
-  :group 'convenience)
+  :group 'convenience
+  :prefix "mp/")
 
 (defcustom mp/org-directory (concat (getenv "HOME") "/Org/")
   "Main org directory"

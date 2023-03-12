@@ -13,9 +13,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package markdown-mode
-  :bind (:map markdown-mode-map))
-
 (use-package nxml-mode
   :ensure nil
   :mode "\\.\\(xml\\|launch\\|sdf\\|urdf\\|xacro\\)\\'"

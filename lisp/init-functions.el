@@ -150,9 +150,7 @@ configuration (from light to dark and vice-versa)"
   (interactive)
   (if (equal '(4) current-prefix-arg)
       (modus-themes-toggle))
-  (blamer-mode 'toggle)
-  (display-line-numbers-mode 'toggle)
-  (global-hl-line-mode 'toggle))
+  (global-display-line-numbers-mode 'toggle))
 
 (defun mp/get-file-name (filename &optional wilcards)
   "Get FILENAME without path"
@@ -169,6 +167,33 @@ See `mp/insert-file-name'"
    (find-file-read-args "Insert filename: "
                         (confirm-nonexistent-file-or-buffer)))
   (insert (mp/get-file-name filename wildcards)))
+
+(defun mp/sluggify-region (beg end)
+  (interactive "r")
+  (when (not mark-active)
+    (cl-return))
+  (save-excursion
+    (replace-string " " "_" t beg end)
+    (downcase-region beg end)))
+
+(defun mp/hl-line-range-function ()
+  "Function used to highlight the current position"
+  (let ((beg (save-excursion (back-to-indentation) (point))))
+    (cons beg (pos-eol))))
+
+(defun mp/beginning-of-line-or-indent ()
+  "Function to put the cursor at the begining of the line or at the
+indentation level. If the cursor position is anywhere but the
+indentation level, send it to this position, otherwise, send it
+to the begining of the line."
+  (interactive)
+  (let ((pos (point))
+        (bol (save-excursion (move-beginning-of-line nil) (point)))
+        (boi (save-excursion (back-to-indentation) (point))))
+    (cond
+     ((eq pos bol) (goto-char boi))
+     ((eq pos boi) (goto-char bol))
+     (t (goto-char boi)))))
 
 ;; Macros
 

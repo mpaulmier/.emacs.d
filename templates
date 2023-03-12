@@ -1,0 +1,8 @@
+python-ts-mode
+
+(rpdb "import rpdb; rpdb.set_trace()")
+
+;; Local Variables:
+;; mode: lisp-data
+;; outline-regexp: "[a-z]"
+;; End:

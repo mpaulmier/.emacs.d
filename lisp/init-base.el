@@ -13,6 +13,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 'init-functions)
+
 (setq inhibit-startup-message t)
 (setq auto-save-default nil
       backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))
@@ -23,24 +25,24 @@
 (scroll-bar-mode -1)
 (column-number-mode)
 
-(setq cursor-in-non-selected-windows t
-      delete-by-moving-to-trash t
+(setq delete-by-moving-to-trash t
       confirm-kill-emacs 'yes-or-no-p
-      indicate-empty-lines t
-      left-margin-width 1
-      right-margin-width 1
       mouse-yank-at-point t
       help-window-select t
       scroll-conservatively most-positive-fixnum
       select-enable-clipboard t
       window-combination-resize t
       ring-bell-function nil
-      visible-bell nil
-      vc-follow-symlinks t)
+      visible-bell nil)
 
 (setq-default show-trailing-whitespace t
+              cursor-in-non-selected-windows t
+              indicate-empty-lines t
+              left-margin-width 1
+              right-margin-width 1
               truncate-lines t
-              abbrev-mode t)
+              abbrev-mode t
+              vc-follow-symlinks t)
 
 (diminish 'abbrev-mode)
 
@@ -73,9 +75,13 @@
 (global-set-key (kbd "C-=") #'mp/increment-number-at-point)
 (global-set-key (kbd "C--") #'mp/decrement-number-at-point)
 (global-set-key (kbd "M-S-<SPC>") #'mp/join-line-one-space)
+(global-set-key (kbd "C-c s") #'mp/suggify-region)
+(global-set-key (kbd "C-a") #'mp/beginning-of-line-or-indent)
+(global-set-key (kbd "C-S-a") #'move-beginning-of-line)
+
 ;; Scroll horizontally
 (global-set-key (kbd "<mouse-6>") (lambda () (interactive)
-				    (if truncate-lines (scroll-right 1))))
+				                    (if truncate-lines (scroll-right 1))))
 (global-set-key (kbd "<mouse-7>") (lambda () (interactive)
 				    (if truncate-lines (scroll-left 1))))
 (global-set-key (kbd "C-x w") #'count-words)
@@ -85,7 +91,13 @@
 (use-package ace-window
   :bind ("C-x o" . ace-window))
 
-(use-package nlinum
-  :custom (nlinum-format " %d "))
+(use-package autorevert
+  :ensure nil
+  :diminish auto-revert-mode)
+
+(use-package proced
+  :ensure nil
+  :custom
+  (proced-auto-update-flag t))
 
 (provide 'init-base)

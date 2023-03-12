@@ -17,6 +17,7 @@
   :ensure nil
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
+         ("C-c C-t" . org-clock-goto)
          ("C-c o" . #'mp/browse-org-dir)
          ("C-c x w" . #'org-copy-region-as-markdown))
   :custom

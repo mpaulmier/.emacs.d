@@ -44,12 +44,12 @@
     (kill-buffer)
     (jump-to-register :magit-fullscreen)))
 
-(use-package blamer
-  :custom
-  (blamer-self-author-name . ("You"))
-  (blamer-force-truncate-long-line . nil)
-  (blamer-type 'visual)
+(use-package magit-todos
+  :after magit
+  :config
+  (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
   :init
-  (global-blamer-mode 1))
+  (let ((inhibit-message t))
+    (magit-todos-mode 1)))
 
 (provide 'init-magit)

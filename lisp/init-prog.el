@@ -32,14 +32,31 @@
 
 (use-package eglot
   :commands eglot
+  :bind (("s-l e" . eglot)
+         :map eglot-mode-map
+         ("s-l r" . eglot-rename)
+         ("s-l a" . eglot-code-actions)
+         ("s-l d" . flymake-show-buffer-diagnostics))
   :config
+  (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
   (add-to-list 'eglot-server-programs
                `(python-mode
-                 . ,(eglot-alternatives '(("pyright-langserver" "--stdio")))))
-  (setq eglot-autoshutdown t))
+                 . ,(eglot-alternatives '(("pylsp")))))
+  (setq eglot-autoshutdown t)
+  (setq eglot-extend-to-xref t))
 
-(use-package flymake
-  :ensure nil)
+(use-package flymake-diagnostic-at-point
+  :after flymake
+  :diminish flymake-diagnostic-at-point-mode
+  :custom
+  (flymake-diagnostic-at-point-display-diagnostic-function #'flymake-diagnostic-at-point-display-popup)
+  (flymake-diagnostic-at-point-timer-delay .1)
+  :config
+  (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
+
+(use-package eldoc
+  :ensure nil
+  :diminish eldoc-mode)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -58,7 +75,6 @@
 (use-package cider
   :after clojure-mode
   :hook
-  (cider-mode . eldoc-mode)
   (cider-repl-mode . paredit-mode)
   :bind (:map clojure-mode-map
               ("C-x C-e" . cider-eval-last-sexp)
@@ -67,7 +83,7 @@
   :custom
   (cider-show-error-buffer t)
   (cider-auto-select-error-buffer t)
-  (cider-repl-history-file "~/.emacs.d/cider-history")
+  (cider-repl-history-file "~/.config/emacs/cider-history")
   (cider-repl-wrap-history t))
 
 (use-package dart-mode
@@ -122,24 +138,23 @@
 
 (use-package python
   :ensure nil
+  :mode ("\\.py" . python-ts-mode)
   :hook
-  (python-mode . flymake-start)
-  (python-mode . eglot-ensure)
-  :bind (:map python-mode-map
+  (python-ts-mode . eglot-ensure)
+  :bind (:map python-ts-mode-map
               ("M-<right>" . python-indent-shift-right)
               ("M-<left>" . python-indent-shift-left)
               ("C-c C-t d" . python-skeleton-method))
-  :init
-  (when (not (null mp/tree-sitter-dir))
-    (add-hook 'python-mode 'python-ts-mode))
+  :custom (python-check-command "flake8 --max-complexity 15 --color never")
   :config
   (python-skeleton-define method nil
     "Function name: "
     "@classmethod" \n
-    "def " str "(cls" ("Parameter, %s: "
-                       str) "):" \n
-    "'''" - "'''" \n
-    > _ \n))
+    "def " str "(cls, " ("Parameter, %s: "
+                  (unless (equal ?\( (char-before)) ", ")
+                  str) "):" \n
+                  "\"\"\"" - "\"\"\"" \n
+                  > _ \n))
 
 (use-package pyenv-mode
   :hook (python-mode . pyenv-mode))
