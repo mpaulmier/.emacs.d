@@ -13,24 +13,27 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package yasnippet
-  :diminish yas-minor-mode
-  :custom
-  (yas-snippet-dirs '("~/.config/emacs/snippets"))
-  :config
-  (yas-global-mode 1))
-
 (use-package tempel
   :bind (("M-+" . tempel-complete)
-         ("M-*" . tempel-insert))
+         ("M-*" . tempel-insert)
+         :map tempel-map
+         ("M-RET" . tempel-really-end)
+         ("TAB" . tempel-next))
   :init
+  (global-tempel-abbrev-mode)
+
+  (defun tempel-really-end ()
+    (interactive)
+    (tempel-end)
+    (tempel-done))
+
   (defun tempel-setup-capf ()
     (setq-local completion-at-point-functions
                 (cons #'tempel-complete
                       completion-at-point-functions)))
 
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf))
+  (add-hook 'prog-mode-hook #'tempel-setup-capf)
+  (add-hook 'text-mode-hook #'tempel-setup-capf))
 
 
 (provide 'init-snippets)
