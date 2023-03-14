@@ -32,7 +32,8 @@
 
 (use-package eglot
   :commands eglot
-  :bind (("s-l e" . eglot)
+  :bind (:map prog-mode-map
+         ("s-l e" . eglot)
          :map eglot-mode-map
          ("s-l r" . eglot-rename)
          ("s-l a" . eglot-code-actions)
