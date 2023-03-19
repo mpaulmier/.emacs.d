@@ -43,6 +43,11 @@
   :config
   (global-hl-line-mode))
 
+(use-package simple
+  :ensure nil
+  :custom (nlinum-format " %d ")
+  (scroll-margin 15))
+
 (use-package rainbow-mode
   :diminish rainbow-mode
   :hook
