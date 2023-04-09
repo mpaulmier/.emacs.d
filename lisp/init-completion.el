@@ -64,6 +64,18 @@
 
 ;;; In buffer completions
 
+(use-package cape
+  :init
+  ;; From corfu's wiki
+  ;; https://github.com/minad/corfu/wiki#making-a-cape-super-capf-for-eglot
+  (defun mp/eglot-capf ()
+    (setq-local completion-at-point-functions
+                (list (cape-super-capf
+                       #'eglot-completion-at-point
+                       #'tempel-expand
+                       #'cape-file))))
+  (add-hook 'eglot-managed-mode-hook #'mp/eglot-capf))
+
 (use-package corfu
   :hook
   (corfu-mode . corfu-popupinfo-mode)
