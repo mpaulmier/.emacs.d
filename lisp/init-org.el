@@ -19,7 +19,10 @@
          ("C-c c" . org-capture)
          ("C-c C-t" . org-clock-goto)
          ("C-c o" . #'mp/browse-org-dir)
-         ("C-c x w" . #'org-copy-region-as-markdown))
+         ("C-c x w" . #'org-copy-region-as-markdown)
+         :map org-mode-map
+         ("M-n" . org-move-subtree-down)
+         ("M-p" . org-move-subtree-up))
   :custom
   (org-src-preserve-indentation nil)
   (org-edit-src-content-indentation 0)
