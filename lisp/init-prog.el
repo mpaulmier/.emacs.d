@@ -44,20 +44,28 @@
                `(python-mode
                  . ,(eglot-alternatives '(("pylsp")))))
   (setq eglot-autoshutdown t)
+  (setq eglot-sync-connect nil)
   (setq eglot-extend-to-xref t))
-
-(use-package flymake-diagnostic-at-point
-  :after flymake
-  :diminish flymake-diagnostic-at-point-mode
-  :custom
-  (flymake-diagnostic-at-point-display-diagnostic-function #'flymake-diagnostic-at-point-display-popup)
-  (flymake-diagnostic-at-point-timer-delay .1)
-  :config
-  (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
 
 (use-package eldoc
   :ensure nil
-  :diminish eldoc-mode)
+  :diminish eldoc-mode
+  :init
+  (setq eldoc-display-functions '(eldoc-display-in-buffer)))
+
+(use-package sideline
+  :hook (eglot-managed-mode . sideline-mode)
+  :diminish sideline-mode
+  :init
+  (use-package sideline-flymake)
+  (setq sideline-backends-skip-current-line t
+        sideline-order-left 'down
+        sideline-order-right 'up
+        sideline-format-left "%s   "
+        sideline-format-right "   %s"
+        sideline-priority 100
+        sideline-display-backend-name t
+        sideline-backends-right '(sideline-flymake)))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
