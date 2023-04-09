@@ -20,7 +20,6 @@
          ("M-RET" . tempel-really-end)
          ("TAB" . tempel-next))
   :init
-  (global-tempel-abbrev-mode)
 
   (defun tempel-really-end ()
     (interactive)
