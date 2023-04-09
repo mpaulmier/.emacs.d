@@ -33,6 +33,7 @@
 (require 'init-calendar)
 (require 'init-comint)
 (require 'init-completion)
+(require 'init-consult)
 (require 'init-dired)
 (require 'init-edit)
 (require 'init-http)
