@@ -108,17 +108,18 @@
   :custom
   (flutter-sdk-path "/opt/flutter/"))
 
-(use-package js-mode
-  :ensure nil
-  :init
-  (when (not (null mp/tree-sitter-dir))
-    (add-hook 'js-mode 'js-ts-mode)))
-
 (use-package typescript-mode
-  :mode "\\.\\(tsx\\)'''"
-  :init
-  (when (not (null mp/tree-sitter-dir))
-    (add-hook 'typescript-mode 'typescript-ts-mode)))
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :hook ((tsx-ts-mode . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure)
+         (tsx-ts-mode . emmet-mode)))
+
+(use-package js
+  :mode (("\\.js\\'" . js-ts-mode)
+         ("\\.jsx\\'" . tsx-ts-mode))
+  :hook (js-ts-mode . eglot-ensure)
+  :custom (js-indent-level 2))
 
 (use-package paredit
   :diminish paredit-mode
