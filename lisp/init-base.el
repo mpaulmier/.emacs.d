@@ -100,4 +100,6 @@
   :custom
   (proced-auto-update-flag t))
 
+(use-package emacs-everywhere)
+
 (provide 'init-base)
