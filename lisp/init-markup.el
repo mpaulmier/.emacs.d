@@ -22,4 +22,6 @@
   (nxml-attribute-indent 4)
   (nxml-slash-auto-complete-flag t))
 
+(use-package markdown-mode)
+
 (provide 'init-markup)

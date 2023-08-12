@@ -27,7 +27,11 @@
               truncate-lines t
               major-mode 'text-mode
               fill-column 80
+              display-fill-column-indicator t
+              display-fill-column-indicator-character "│"
               tab-width 4
               indent-tabs-mode nil)
+
+(global-display-fill-column-indicator-mode 1)
 
 (provide 'init-edit)

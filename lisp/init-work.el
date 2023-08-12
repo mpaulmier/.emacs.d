@@ -13,6 +13,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 's)
+
 (defun compute-ssn (ssn)
   "Takes the first 13 characters of a french social security number
 and returns the full 15 chars social security number with its key"
@@ -26,12 +28,14 @@ and returns the full 15 chars social security number with its key"
         (error "SSN must represent a number"))
     (concat ssn (string-pad (number-to-string key) 2 ?0 t))))
 
-(defun do-edit-coog-changelogs ()
-  (interactive)
+(defun do-edit-coog-changelogs (ticket-number bugp)
+  (interactive (list (read-minibuffer "Ticket number: ")
+                     (y-or-n-p "Is this a bug?")))
   (if (not (s-contains? "/modules/" (buffer-file-name)))
       (error "Not in a coog module"))
   (global-set-key (kbd "C-c w c") 'do-end-edit-coog-changelogs)
   (let* ((root (car (project-roots (project-current))))
+         (ticket-type (if bugp "BUG" "FEA"))
          (module (concat
                   root
                   (replace-regexp-in-string
@@ -44,12 +48,16 @@ and returns the full 15 chars social security number with its key"
     (find-file (concat module "/doc/en/CHANGELOG"))
     (rename-buffer "EDIT-EN-CHANGELOG-COOG")
     (beginning-of-buffer)
-    (without-major-mode (open-line 1))
+    (without-major-mode
+     (open-line 1)
+     (insert (format "* %s#%s" ticket-type ticket-number)))
     (other-window 1)
     (find-file (concat module "/doc/fr/CHANGELOG"))
     (rename-buffer "EDIT-FR-CHANGELOG-COOG")
     (beginning-of-buffer)
-    (without-major-mode (open-line 1))))
+    (without-major-mode
+     (open-line 1)
+     (insert (format "* %s#%s" ticket-type ticket-number)))))
 
 (defun do-end-edit-coog-changelogs ()
   (interactive)

@@ -150,7 +150,8 @@ configuration (from light to dark and vice-versa)"
   (interactive)
   (if (equal '(4) current-prefix-arg)
       (modus-themes-toggle))
-  (global-display-line-numbers-mode 'toggle))
+  (global-display-line-numbers-mode 'toggle)
+  (global-hl-line-mode 'toggle))
 
 (defun mp/get-file-name (filename &optional wilcards)
   "Get FILENAME without path"
@@ -176,11 +177,6 @@ See `mp/insert-file-name'"
     (replace-string " " "_" t beg end)
     (downcase-region beg end)))
 
-(defun mp/hl-line-range-function ()
-  "Function used to highlight the current position"
-  (let ((beg (save-excursion (back-to-indentation) (point))))
-    (cons beg (pos-eol))))
-
 (defun mp/beginning-of-line-or-indent ()
   "Function to put the cursor at the begining of the line or at the
 indentation level. If the cursor position is anywhere but the
@@ -194,6 +190,9 @@ to the begining of the line."
      ((eq pos bol) (goto-char boi))
      ((eq pos boi) (goto-char bol))
      (t (goto-char boi)))))
+
+(defun mp/vim-header ()
+  (beginning-of-buffer))
 
 ;; Macros
 

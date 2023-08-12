@@ -1,6 +1,22 @@
 python-ts-mode
 
 (rpdb "import rpdb; rpdb.set_trace()")
+(br "breakpoint()")
+(pool "pool = Pool()")
+(m2o p " = fields.Many2One(" p ", " p ", ondelete='" p "')")
+(o2m p " = fields.One2Many(" p ", " p ", " p ")")
+(setup > "@classmethod" n> "def __setup__(cls):" n> "super().__setup__()" n>)
+
+nxml-mode
+
+(lf "<label name=\"" (s name) "\"/>" n> "<field name=\"" (s name) "\"/>")
+(label "<label name=\"" p "\"" p "/>")
+(field "<field name=\"" p "\"" p "/>")
+(message "<record model=\"ir.message\" id=\"" p "\">" n> "<field name=\"text\">" p "</field>" n> "</record>" >)
+(box "<!-- #" (make-string (+ 2 (length str)) ?#) "# -->" n>
+     "<!-- # " (s str)                       " # -->" n>
+     "<!-- #" (make-string (+ 2 (length str)) ?#) "# -->")
+(newline "<newline/>")
 
 ;; Local Variables:
 ;; mode: lisp-data

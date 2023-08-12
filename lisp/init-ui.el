@@ -36,12 +36,7 @@
 (use-package hl-line
   :ensure nil
   :custom-face
-  (hl-line ((t (:extend nil))))
-
-  :init
-  (setq-default hl-line-range-function #'mp/hl-line-range-function)
-  :config
-  (global-hl-line-mode))
+  (hl-line ((t (:extend nil)))))
 
 (use-package simple
   :ensure nil

@@ -40,7 +40,7 @@
   (setq-default org-agenda-files '()
                 initial-major-mode 'org-mode
                 initial-scratch-message "#+TITLE: Scratch buffer\n\n")
-  (dolist (file '("habits.org"))
+  (dolist (file '("work.org" "todo.org"))
     (add-to-list 'org-agenda-files (concat mp/org-directory file))))
 
 (use-package org-bullets

@@ -13,11 +13,11 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package highlight-indent-guides
-  :diminish highlight-indent-guides-mode
-  :custom
-  (highlight-indent-guides-method 'character)
-  (highlight-indent-guides-responsive 'top))
+;; (use-package highlight-indent-guides
+;;   :diminish highlight-indent-guides-mode
+;;   :custom
+;;   (highlight-indent-guides-method 'character)
+;;   (highlight-indent-guides-responsive 'top))
 
 (use-package hideshow
   :diminish hs-minor-mode
@@ -27,25 +27,7 @@
 (use-package prog-mode
   :ensure nil
   :hook
-  (prog-mode . electric-pair-mode)
-  (prog-mode . highlight-indent-guides-mode))
-
-(use-package eglot
-  :commands eglot
-  :bind (:map prog-mode-map
-         ("s-l e" . eglot)
-         :map eglot-mode-map
-         ("s-l r" . eglot-rename)
-         ("s-l a" . eglot-code-actions)
-         ("s-l d" . flymake-show-buffer-diagnostics))
-  :config
-  (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
-  (add-to-list 'eglot-server-programs
-               `(python-mode
-                 . ,(eglot-alternatives '(("pylsp")))))
-  (setq eglot-autoshutdown t)
-  (setq eglot-sync-connect nil)
-  (setq eglot-extend-to-xref t))
+  (prog-mode . electric-pair-mode))
 
 (use-package eldoc
   :ensure nil

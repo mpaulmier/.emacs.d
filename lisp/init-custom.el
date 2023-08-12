@@ -23,7 +23,7 @@
   :group 'mp
   :type 'string)
 
-(defcustom mp/no-stw-modes '(calendar-mode comint-mode help-mode markdown-mode tabulated-list-mode gud-mode)
+(defcustom mp/no-stw-modes '(calendar-mode comint-mode help-mode markdown-mode tabulated-list-mode gud-mode embark-collect-mode)
   "List of modes for which we wish to disable
 `show-trailing-whitespace'"
   :group 'mp

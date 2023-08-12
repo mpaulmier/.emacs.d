@@ -44,12 +44,12 @@
     (kill-buffer)
     (jump-to-register :magit-fullscreen)))
 
-(use-package magit-todos
-  :after magit
-  :config
-  (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
-  :init
-  (let ((inhibit-message t))
-    (magit-todos-mode 1)))
+;; (use-package magit-todos
+;;   :after magit
+;;   :config
+;;   (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
+;;   :init
+;;   (let ((inhibit-message t))
+;;     (magit-todos-mode 1)))
 
 (provide 'init-magit)

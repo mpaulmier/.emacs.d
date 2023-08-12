@@ -20,10 +20,12 @@
       backup-directory-alist `((".*" . ,mp/emacs-tmp-dir))
       create-lockfiles nil
       custom-file mp/custom-file)
+(setq redisplay-dont-pause t)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (column-number-mode)
+(menu-bar-mode -1)
 
 (setq delete-by-moving-to-trash t
       confirm-kill-emacs 'yes-or-no-p
@@ -47,6 +49,8 @@
 (diminish 'abbrev-mode)
 
 (add-hook 'text-mode-hook #'mp/disable-stw-maybe)
+(add-hook 'special-mode #'mp/disable-stw-maybe)
+(add-hook 'find-file-hook #'mp/vim-header)
 
 (blink-cursor-mode -1)
 (delete-selection-mode t)

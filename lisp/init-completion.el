@@ -64,8 +64,49 @@
 
 ;;; In buffer completions
 
-(use-package cape
+(use-package eglot
+  :commands eglot
+  :bind (:map prog-mode-map
+         ("s-l e" . eglot)
+         :map eglot-mode-map
+         ("s-l r" . eglot-rename)
+         ("s-l a" . eglot-code-actions)
+         ("s-l d" . flymake-show-buffer-diagnostics))
+  :config
+  (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
+  (add-to-list 'eglot-server-programs
+               `(python-mode
+                 . ,(eglot-alternatives '(("pylsp")))))
+  (setq eglot-autoshutdown t)
+  (setq eglot-sync-connect nil)
+  (setq eglot-extend-to-xref t)
+  (setq eglot-events-buffer-size 0))
+
+(use-package tempel
+  :ensure t
+  :bind (("M-+" . tempel-complete)
+         ("M-*" . tempel-insert)
+         :map tempel-map
+         ("M-RET" . tempel-really-end)
+         ("TAB" . tempel-next))
   :init
+
+  (defun tempel-really-end ()
+    (interactive)
+    (tempel-end)
+    (tempel-done))
+
+  (defun tempel-setup-capf ()
+    (when (not (member #'tempel-complete completion-at-point-functions))
+        (setq-local completion-at-point-functions
+                    (cons #'tempel-complete
+                          completion-at-point-functions))))
+  (add-hook 'nxml-mode-hook #'tempel-setup-capf))
+
+(use-package cape
+  :after (eglot tempel)
+  :config
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   ;; From corfu's wiki
   ;; https://github.com/minad/corfu/wiki#making-a-cape-super-capf-for-eglot
   (defun mp/eglot-capf ()
