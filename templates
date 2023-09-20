@@ -6,6 +6,9 @@ python-ts-mode
 (m2o p " = fields.Many2One(" p ", " p ", ondelete='" p "')")
 (o2m p " = fields.One2Many(" p ", " p ", " p ")")
 (setup > "@classmethod" n> "def __setup__(cls):" n> "super().__setup__()" n>)
+(printbox "print('#" (make-string (+ 2 (length str)) ?#) "#')" n>
+          "print('# " (s str ) " #')" n>
+          "print('#" (make-string (+ 2 (length str)) ?#) "#')")
 
 nxml-mode
 
