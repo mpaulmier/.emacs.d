@@ -49,6 +49,12 @@
         sideline-display-backend-name t
         sideline-backends-right '(sideline-flymake)))
 
+(use-package breadcrumb
+  ;; :bind (:map breadcrumb-mode-map
+  ;;             ("C-c j" . #'breadcrumb-jump))
+  :init
+  (breadcrumb-mode 1))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
