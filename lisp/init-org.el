@@ -30,6 +30,7 @@
   (org-export-backends '(ascii html icalendar latex odt md org))
   (org-startup-folded 'overview)
   (org-log-into-drawer t)
+  (org-enforce-todo-checkbox-dependencies t)
   (org-todo-keywords '("TODO(t)" "WAIT(w@)" "NEXT(n!)" "|" "DONE(d!)" "CANCELLED(c@)"))
   (org-capture-templates
    `(("t" "New Task" entry (file ,(concat mp/org-directory "inbox.org"))
