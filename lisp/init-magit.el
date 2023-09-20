@@ -42,14 +42,16 @@
     "Restores the previous window configuration and kills the magit buffer"
     (interactive)
     (kill-buffer)
-    (jump-to-register :magit-fullscreen)))
+    (jump-to-register :magit-fullscreen))
+  (add-hook 'git-commit-mode-hook (lambda () (breadcrumb-local-mode -1))))
 
-;; (use-package magit-todos
-;;   :after magit
-;;   :config
-;;   (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
-;;   :init
-;;   (let ((inhibit-message t))
-;;     (magit-todos-mode 1)))
+(use-package magit-todos
+  :after magit
+  :config
+  (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
+  :init
+  (add-hook 'magit-mode-hook (lambda ()
+                          (let ((inhibit-message t))
+                            (magit-todos-mode 1)))))
 
 (provide 'init-magit)
