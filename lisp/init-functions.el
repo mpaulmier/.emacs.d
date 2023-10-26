@@ -197,6 +197,7 @@ to the begining of the line."
 ;; Macros
 
 (defmacro without-major-mode (&rest body)
+  (declare (indent 0))
   `(progn
      (major-mode-suspend)
      ,@body
