@@ -19,7 +19,7 @@
   "Takes the first 13 characters of a french social security number
 and returns the full 15 chars social security number with its key"
 
-  (interactive "sType the first 13 numbers of the ssn number here: ")
+  (interactive "sType the first 13 numbers of the ssn here: ")
   (if (not (eq 13 (length ssn)))
       (error "SSN needs to be 13 chars long"))
   (let* ((ssn-number (string-to-number ssn))
@@ -33,7 +33,6 @@ and returns the full 15 chars social security number with its key"
                      (y-or-n-p "Is this a bug?")))
   (if (not (s-contains? "/modules/" (buffer-file-name)))
       (error "Not in a coog module"))
-  (global-set-key (kbd "C-c w c") 'do-end-edit-coog-changelogs)
   (let* ((root (car (project-roots (project-current))))
          (ticket-type (if bugp "BUG" "FEA"))
          (module (concat
@@ -45,28 +44,22 @@ and returns the full 15 chars social security number with its key"
     (window-configuration-to-register :coog-changelog-edit)
     (delete-other-windows)
     (split-window-right)
-    (find-file (concat module "/doc/en/CHANGELOG"))
-    (rename-buffer "EDIT-EN-CHANGELOG-COOG")
-    (beginning-of-buffer)
-    (without-major-mode
-     (open-line 1)
-     (insert (format "* %s#%s" ticket-type ticket-number)))
-    (other-window 1)
-    (find-file (concat module "/doc/fr/CHANGELOG"))
-    (rename-buffer "EDIT-FR-CHANGELOG-COOG")
-    (beginning-of-buffer)
-    (without-major-mode
-     (open-line 1)
-     (insert (format "* %s#%s" ticket-type ticket-number)))))
+    (dolist (lang '("en" "fr"))
+      (find-file (format "%s/doc/%s/tmp_changelogs/%s" module lang ticket-number))
+      (rename-buffer (format "edit-%s-changelog-coog" lang))
+      (beginning-of-buffer)
+      (without-major-mode
+       (open-line 1)
+       (insert (format "* %s#%s" ticket-type ticket-number)))
+      (other-window 1)))
+  (global-set-key (kbd "C-c w c") 'do-end-edit-coog-changelogs))
 
 (defun do-end-edit-coog-changelogs ()
   (interactive)
-  (switch-to-buffer "EDIT-EN-CHANGELOG-COOG")
-  (save-buffer)
-  (kill-this-buffer)
-  (switch-to-buffer "EDIT-FR-CHANGELOG-COOG")
-  (save-buffer)
-  (kill-this-buffer)
+  (dolist (lang '("en" "fr"))
+    (switch-to-buffer (concat "edit-" lang "-changelog-coog"))
+    (save-buffer)
+    (kill-this-buffer))
   (jump-to-register :coog-changelog-edit)
   (global-set-key (kbd "C-c w c") 'do-edit-coog-changelogs))
 
