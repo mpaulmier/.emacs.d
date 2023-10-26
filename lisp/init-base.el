@@ -44,7 +44,8 @@
               right-margin-width 1
               truncate-lines t
               abbrev-mode t
-              vc-follow-symlinks t)
+              vc-follow-symlinks t
+              require-final-newline t)
 
 (diminish 'abbrev-mode)
 
