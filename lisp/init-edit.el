@@ -30,8 +30,10 @@
               display-fill-column-indicator t
               display-fill-column-indicator-character "│"
               tab-width 4
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              sort-fold-case t)
 
 (global-display-fill-column-indicator-mode 1)
+(global-set-key (kbd "C-c M-l") #'sort-lines)
 
 (provide 'init-edit)
