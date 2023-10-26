@@ -31,9 +31,7 @@
 
 (use-package eldoc
   :ensure nil
-  :diminish eldoc-mode
-  :init
-  (setq eldoc-display-functions '(eldoc-display-in-buffer)))
+  :diminish eldoc-mode)
 
 (use-package sideline
   :hook (eglot-managed-mode . sideline-mode)
