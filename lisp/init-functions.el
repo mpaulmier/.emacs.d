@@ -13,7 +13,6 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;; TODO: I think this actually exists in emacs, look it up and maybe remove this
 (defun mp/join-line-one-space ()
   "A mix between join-line and just-one-space"
   (interactive)
