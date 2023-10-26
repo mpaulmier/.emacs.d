@@ -126,7 +126,7 @@ is in `no-dtw-modes'"
 backup with name `<current_name>_$(date --iso)'"
   (interactive)
   (let ((filename (dired-file-name-at-point)))
-    (dired-rename-file filename (concat filename (mp/get-date)) nil)
+    (dired-rename-file filename (concat filename "_" (mp/get-date)) nil)
     (revert-buffer)))
 
 (defun org-copy-region-as-markdown ()
