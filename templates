@@ -1,7 +1,7 @@
 python-ts-mode
 
 (rpdb "import rpdb; rpdb.set_trace()")
-(br "breakpoint()")
+(breakpoint "breakpoint()")
 (pool "pool = Pool()")
 (m2o p " = fields.Many2One(" p ", " p ", ondelete='" p "')")
 (o2m p " = fields.One2Many(" p ", " p ", " p ")")
