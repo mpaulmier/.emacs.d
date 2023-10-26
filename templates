@@ -15,11 +15,13 @@ nxml-mode
 (lf "<label name=\"" (s name) "\"/>" n> "<field name=\"" (s name) "\"/>")
 (label "<label name=\"" p "\"" p "/>")
 (field "<field name=\"" p "\"" p "/>")
-(message "<record model=\"ir.message\" id=\"" p "\">" n> "<field name=\"text\">" p "</field>" n> "</record>" >)
 (box "<!-- #" (make-string (+ 2 (length str)) ?#) "# -->" n>
      "<!-- # " (s str)                       " # -->" n>
      "<!-- #" (make-string (+ 2 (length str)) ?#) "# -->")
 (newline "<newline/>")
+(message "<record model=\"" p "\" id=\"" p "\">" n>
+         "<field name=\"" p "\">" p "</field>" n>
+         "</record>" >)
 
 ;; Local Variables:
 ;; mode: lisp-data
