@@ -55,6 +55,6 @@
 (use-package display-line-numbers
   :ensure nil
   :custom
-  (display-line-numbers-type 'relative))
+  (display-line-numbers-type 'absolute))
 
 (provide 'init-ui)
