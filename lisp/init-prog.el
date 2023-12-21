@@ -155,6 +155,13 @@
 (use-package pyenv-mode
   :hook (python-mode . pyenv-mode))
 
+(use-package c-mode
+  :ensure nil
+  :mode (("\\.c\\'" . c-ts-mode))
+  :hook (c-ts-mode . eglot-ensure)
+  :bind (:map c-ts-mode-map
+              ("C-<return>" . mp/insert-semi-col)))
+
 (use-package css-mode
   :ensure nil
   :init

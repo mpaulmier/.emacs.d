@@ -190,8 +190,11 @@ to the begining of the line."
      ((eq pos boi) (goto-char bol))
      (t (goto-char boi)))))
 
-(defun mp/vim-header ()
-  (beginning-of-buffer))
+(defun mp/insert-semi-col ()
+  (interactive)
+  (end-of-line)
+  (insert ";")
+  (newline nil t))
 
 ;; Macros
 
