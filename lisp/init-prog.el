@@ -128,8 +128,8 @@
 
 (use-package lua-mode
   :ensure t
-  :hook
-  (lua-mode . electric-pair-mode)
+  :hook ((lua-mode . electric-pair-mode)
+         (lua-mode . eglot-ensure))
   :custom ((lua-indent-level 4)
            (lua-indent-nested-block-content-align nil)))
 
