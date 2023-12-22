@@ -51,7 +51,6 @@
 
 (add-hook 'text-mode-hook #'mp/disable-stw-maybe)
 (add-hook 'special-mode #'mp/disable-stw-maybe)
-(add-hook 'find-file-hook #'mp/vim-header)
 
 (blink-cursor-mode -1)
 (delete-selection-mode t)
