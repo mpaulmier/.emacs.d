@@ -105,7 +105,8 @@
   :mode (("\\.js\\'" . js-ts-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
   :hook (js-ts-mode . eglot-ensure)
-  :custom (js-indent-level 2))
+  :hook (js-json-mode . eglot-ensure)
+  :custom (js-indent-level 4))
 
 (use-package paredit
   :diminish paredit-mode
