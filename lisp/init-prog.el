@@ -175,4 +175,6 @@
   (when (not (null mp/tree-sitter-dir))
     (add-hook 'bash-mode 'bash-ts-mode)))
 
+(use-package php-mode)
+
 (provide 'init-prog)
