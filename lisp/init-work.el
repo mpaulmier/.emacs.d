@@ -28,48 +28,10 @@ and returns the full 15 chars social security number with its key"
         (error "SSN must represent a number"))
     (concat ssn (string-pad (number-to-string key) 2 ?0 t))))
 
-(defun do-edit-coog-changelogs (ticket-number bugp)
-  (interactive (list (read-minibuffer "Ticket number: ")
-                     (y-or-n-p "Is this a bug?")))
-  (if (not (s-contains? "/modules/" (buffer-file-name)))
-      (error "Not in a coog module"))
-  (let* ((root (car (project-roots (project-current))))
-         (ticket-type (if bugp "BUG" "FEA"))
-         (module (concat
-                  root
-                  (replace-regexp-in-string
-                   ".*/\\(modules/[^/]*\\)/.*"
-                   "\\1"
-                   (buffer-file-name)))))
-    (window-configuration-to-register :coog-changelog-edit)
-    (delete-other-windows)
-    (split-window-right)
-    (dolist (lang '("en" "fr"))
-      (find-file (format "%s/doc/%s/tmp_changelogs/%s" module lang ticket-number))
-      (rename-buffer (format "edit-%s-changelog-coog" lang))
-      (beginning-of-buffer)
-      (without-major-mode
-       (open-line 1)
-       (insert (format "* %s#%s" ticket-type ticket-number)))
-      (other-window 1)))
-  (global-set-key (kbd "C-c w c") 'do-end-edit-coog-changelogs))
-
-(defun do-end-edit-coog-changelogs ()
-  (interactive)
-  (dolist (lang '("en" "fr"))
-    (switch-to-buffer (concat "edit-" lang "-changelog-coog"))
-    (save-buffer)
-    (kill-this-buffer))
-  (jump-to-register :coog-changelog-edit)
-  (global-set-key (kbd "C-c w c") 'do-edit-coog-changelogs))
-
-(defun insert-coog-header ()
+(defun insert-work-header ()
   (interactive)
   (let ((lice:header-spec '(lice:insert-license)))
-    (lice "coog-header")))
-
-(global-set-key (kbd "C-c w c") 'do-edit-coog-changelogs)
-(global-set-key (kbd "C-c w l") 'insert-coog-header)
+    (lice "work-header")))
 
 (use-package conf-mode
   :ensure nil
