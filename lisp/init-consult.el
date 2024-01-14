@@ -14,7 +14,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package consult
-  :bind (("M-y" . consult-yank-from-kill-ring)
+  :bind (("M-y" . consult-yank-pop)
          ("C-x b" . consult-buffer)
          ("C-s" . consult-line)
          ("C-S-s" . consult-ripgrep)
