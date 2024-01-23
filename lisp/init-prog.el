@@ -171,7 +171,7 @@
 
 (use-package shell
   :ensure nil
-    :init
+  :init
   (when (not (null mp/tree-sitter-dir))
     (add-hook 'bash-mode 'bash-ts-mode)))
 
@@ -179,7 +179,7 @@
   :after eglot
   :hook (elixir-ts-mode . eglot-ensure)
   :init
-  (add-to-list 'eglot-server-programs '(elixir-ts-mode (concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
+  (add-to-list 'eglot-server-programs `(elixir-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
 (use-package php-mode)
 
