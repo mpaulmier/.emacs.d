@@ -23,6 +23,12 @@ nxml-mode
          "<field name=\"" p "\">" p "</field>" n>
          "</record>" >)
 
+elixir-ts-mode
+
+(defmodule "defmodule " p " do" n> q n "end" >)
+(def "def " p " do" n> q > n> "end" >)
+(defp "defp " p " do" n> q > n> "end" >)
+
 ;; Local Variables:
 ;; mode: lisp-data
 ;; outline-regexp: "[a-z]"
