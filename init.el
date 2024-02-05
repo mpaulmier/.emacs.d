@@ -46,3 +46,7 @@
 (require 'init-snippets)
 (require 'init-which-key)
 (require 'init-work)
+
+;; The dark side 😨
+
+(require 'init-macos)
