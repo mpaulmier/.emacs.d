@@ -13,11 +13,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-(use-package emacs
+(use-package ns-win
   :if (eq system-type 'darwin)
   :ensure nil
-  :custom ((mac-option-modifier 'super)
-           (mac-right-option-modifier 'alt))
+  :custom
+  (mac-right-option-modifier "alt")
+  :init
   (global-set-key [kp-delete] 'delete-char))
 
 (provide 'init-macos)
