@@ -165,6 +165,8 @@
 
 (use-package css-mode
   :ensure nil
+  :custom
+  (css-indent-offset 2)
   :init
   (when (not (null mp/tree-sitter-dir))
     (add-hook 'css-mode 'css-ts-mode)))
