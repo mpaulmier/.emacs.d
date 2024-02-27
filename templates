@@ -1,4 +1,4 @@
-python-ts-mode
+python-ts-mode python-mode
 
 (rpdb "import rpdb; rpdb.set_trace()")
 (breakpoint "breakpoint()")
@@ -23,11 +23,13 @@ nxml-mode
          "<field name=\"" p "\">" p "</field>" n>
          "</record>" >)
 
-elixir-ts-mode
+elixir-mode elixir-ts-mode
 
 (defmodule "defmodule " p " do" n> q n "end" >)
 (def "def " p " do" n> q > n> "end" >)
 (defp "defp " p " do" n> q > n> "end" >)
+(defo "def " p ", do: " p)
+(defop "def " p ", do: " p)
 
 ;; Local Variables:
 ;; mode: lisp-data
