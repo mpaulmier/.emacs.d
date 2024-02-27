@@ -21,4 +21,13 @@
   :init
   (global-set-key [kp-delete] 'delete-char))
 
+(use-package magit
+  :init
+  ;; Small hack for macos, don't do this maybe
+  (defadvice server-ensure-safe-dir (around
+                                     my-around-server-ensure-safe-dir
+                                     activate)
+    "Ignores any errors raised from server-ensure-safe-dir"
+    (ignore-errors ad-do-it)))
+
 (provide 'init-macos)

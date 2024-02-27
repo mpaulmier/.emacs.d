@@ -119,7 +119,9 @@ is in `no-dtw-modes'"
 
 (defun mp/get-date nil
   (interactive)
-  (shell-command-to-string "echo -n $(date --iso)"))
+  (if (eq system-type 'darwin)
+      (shell-command-to-string "echo -n $(date -I)")
+      (shell-command-to-string "echo -n $(date --iso)")))
 
 (defun mp/backup-at-point nil
   "In dired, move the current file or directory at point to a new
