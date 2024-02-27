@@ -43,7 +43,6 @@
 (require 'init-org)
 (require 'init-prog)
 (require 'init-project)
-(require 'init-snippets)
 (require 'init-which-key)
 (require 'init-work)
 
