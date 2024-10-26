@@ -16,7 +16,6 @@
 (use-package nxml-mode
   :ensure nil
   :mode "\\.\\(xml\\|launch\\|sdf\\|urdf\\|xacro\\)\\'"
-  :hook (nxml-mode . tempel)
   :custom
   (nxml-child-indent 4)
   (nxml-attribute-indent 4)

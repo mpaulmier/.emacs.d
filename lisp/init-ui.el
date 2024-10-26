@@ -15,23 +15,15 @@
 
 (require 'init-functions)
 
-(use-package modus-themes
-  :ensure t
-  :custom
-  (modus-themes-paren-match '(bold))
-  (modus-themes-region '(no-extend))
-  (modus-themes-to-toggle '(modus-operandi-tinted modus-vivendi-tinted)))
-
 (use-package faces
   :ensure nil
-  :bind (("C-c t" . modus-themes-toggle)
-         ("C-c p" . mp/toggle-presentation-view))
   :custom-face
   (mode-line ((t (:underline nil))))
   :config
   (when (member "Iosevka" (font-family-list))
-    (setq default-frame-alist '((font . "Iosevka"))))
-  (load-theme 'modus-operandi-tinted))
+    (setq default-frame-alist '((font . "Iosevka Term"))))
+  (load-theme 'tango)
+  (add-hook 'window-size-change-functions #'mp/show-time-for-fullscreen))
 
 (use-package hl-line
   :ensure nil
@@ -55,6 +47,6 @@
 (use-package display-line-numbers
   :ensure nil
   :custom
-  (display-line-numbers-type 'absolute))
+  (display-line-numbers-type 'relative))
 
 (provide 'init-ui)

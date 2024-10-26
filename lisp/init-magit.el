@@ -25,8 +25,6 @@
   ;; Maximum acceptable width for summary buffer
   (git-commit-summary-max-length 50)
   (magit-bind-magit-project-status t)
-  :init
-  (require 'magit-extras)
   :config
   ;; full screen magit-status
   ;; From http://whattheemacsd.com/setup-magit.el-01.html
@@ -46,12 +44,12 @@
   (add-hook 'git-commit-mode-hook (lambda () (breadcrumb-local-mode -1))))
 
 (use-package magit-todos
-  :after magit
-  :config
-  (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
-  :init
-  (add-hook 'magit-mode-hook (lambda ()
-                          (let ((inhibit-message t))
-                            (magit-todos-mode 1)))))
+ :after magit
+ :config
+ (setq magit-todos-keywords-list (remove "BUG" magit-todos-keywords-list))
+ :init
+ (add-hook 'magit-mode-hook (lambda ()
+                         (let ((inhibit-message t))
+                           (magit-todos-mode 1)))))
 
 (provide 'init-magit)

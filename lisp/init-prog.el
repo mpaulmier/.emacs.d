@@ -33,6 +33,26 @@
   :ensure nil
   :diminish eldoc-mode)
 
+(use-package flymake
+  :ensure nil
+  :after consult
+  :bind (:map flymake-mode-map
+         ("C-c f" . consult-flymake)))
+
+(progn
+  (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
+  (require 'flymake-credo)
+  (setq flymake-credo-min-priority 1))
+
+(use-package flymake-cspell
+  :init
+  ;; Force running flymake diags when openning a file managed by eglot after setting up cspell
+  (add-hook 'eglot-managed-mode-hook (lambda nil
+                                       (flymake-cspell-setup)
+                                       (flymake-credo-load)
+                                       (flymake-start)))
+  (setq flymake-cspell-diagnostic-type :note))
+
 (use-package sideline
   :hook (eglot-managed-mode . sideline-mode)
   :diminish sideline-mode
@@ -102,11 +122,11 @@
          (tsx-ts-mode . emmet-mode)))
 
 (use-package js
-  :mode (("\\.js\\'" . js-ts-mode)
+  :mode (("\\.js\\'" . js-jsx-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
-  :hook (js-ts-mode . eglot-ensure)
+  :hook (js-jsx-mode . eglot-ensure)
   :hook (js-json-mode . eglot-ensure)
-  :custom (js-indent-level 4))
+  :custom (js-indent-level 2))
 
 (use-package paredit
   :diminish paredit-mode
@@ -178,11 +198,23 @@
     (add-hook 'bash-mode 'bash-ts-mode)))
 
 (use-package elixir-ts-mode
+  :mode "\\.ex\\|\\.exs\\'"
   :after eglot
   :hook (elixir-ts-mode . eglot-ensure)
   :init
   (add-to-list 'eglot-server-programs `(elixir-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
 (use-package php-mode)
+
+(use-package outline-indent
+  :ensure t
+  :commands (outline-indent-minor-mode
+             outline-indent-insert-heading)
+  :hook ((yaml-mode . outline-indent-minor-mode)
+         (yaml-ts-mode . outline-indent-minor-mode)
+         (elixir-mode . outline-indent-minor-mode)
+         (elixir-ts-mode . outline-indent-minor-mode))
+  :custom
+  (outline-indent-ellipsis " ▼ "))
 
 (provide 'init-prog)

@@ -51,12 +51,6 @@
   (setq completion-styles '(orderless flex))
   (setq orderless-matching-styles '(orderless-literal orderless-regexp)))
 
-(use-package flymake
-  :ensure nil
-  :after consult
-  :bind (:map flymake-mode-map
-         ("C-c f" . consult-flymake)))
-
 (use-package save-hist
   :ensure nil
   :init
@@ -101,7 +95,8 @@
         (setq-local completion-at-point-functions
                     (cons #'tempel-complete
                           completion-at-point-functions))))
-  (add-hook 'nxml-mode-hook #'tempel-setup-capf))
+  (add-hook 'prog-mode-hook #'tempel-setup-capf)
+  (add-hook 'prog-mode-hook #'tempel-abbrev-mode))
 
 (use-package cape
   :after (eglot tempel)
@@ -113,7 +108,7 @@
     (setq-local completion-at-point-functions
                 (list (cape-super-capf
                        #'eglot-completion-at-point
-                       #'tempel-expand
+                       #'tempel-complete
                        #'cape-file))))
   (add-hook 'eglot-managed-mode-hook #'mp/eglot-capf))
 

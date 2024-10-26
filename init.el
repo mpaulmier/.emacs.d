@@ -47,5 +47,5 @@
 (require 'init-work)
 
 ;; The dark side 😨
-
-(require 'init-macos)
+(when (eq system-type 'darwin)
+  (require 'init-macos))

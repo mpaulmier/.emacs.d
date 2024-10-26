@@ -14,7 +14,6 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (use-package ns-win
-  :if (eq system-type 'darwin)
   :ensure nil
   :custom
   (mac-right-option-modifier "alt")

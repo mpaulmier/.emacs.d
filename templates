@@ -25,12 +25,24 @@ nxml-mode
 
 elixir-mode elixir-ts-mode
 
-(defmodule "defmodule " p " do" n> q n "end" >)
+(defmodule "defmodule " p " do" n> q > n "end" >)
 (def "def " p " do" n> q > n> "end" >)
 (defp "defp " p " do" n> q > n> "end" >)
-(defo "def " p ", do: " p)
-(defop "def " p ", do: " p)
-
+(defo "def " p ", do: " q)
+(defop "defp " p ", do: " q)
+(prot "def " p "(" q ")")
+(pprot "defp " p "(" q ")")
+(doc "@doc \"\"\"" n> p n> "\"\"\"")
+(insp "IO.inspect(" q ")")
+;; (fn "fn " p "->" n> q > n> "end" >)
+(getenv "Application.get_env(:" (p (project-name (project-current))) ", :" p ")")
+(ffdev "Application.get_env(:suv_services, :env) in [:dev]")
+(ffqa "Application.get_env(:suv_services, :env) in [:dev, :qa]")
+(ffpp "Application.get_env(:suv_services, :env) in [:dev, :qa, :preprod]")
+(ffindus "Application.get_env(:suv_services, :env) in [:dev, :qa, :preprod, :indus]")
+(ffprod "Application.get_env(:suv_services, :env) in [:dev, :qa, :preprod, :indus, :prod]")
+;; (do "do" n> q > n> "end" >)
+;; (after "after" n> q > n> "end" >)
 ;; Local Variables:
 ;; mode: lisp-data
 ;; outline-regexp: "[a-z]"

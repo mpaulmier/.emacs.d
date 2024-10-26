@@ -18,7 +18,8 @@
   :config
   (dolist (item '((project-dired "Dired")
                   (project-kill-buffers "Kill all buffers")
-                  (project-switch-to-buffer "Switch to Buffer")))
+                  (project-switch-to-buffer "Switch to Buffer")
+                  (magit-project-status "Magit status" "m")))
     (add-to-list 'project-switch-commands item t)))
 
 (provide 'init-project)

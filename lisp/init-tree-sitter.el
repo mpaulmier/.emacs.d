@@ -17,6 +17,7 @@
   :ensure nil
   :defer nil
   :init
-  (setq treesit-extra-load-path (list mp/tree-sitter-dir)))
+  (setq treesit-extra-load-path (list mp/tree-sitter-dir)
+        treesit-font-lock-level 4))
 
 (provide 'init-tree-sitter)

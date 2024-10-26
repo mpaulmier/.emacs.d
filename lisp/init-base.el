@@ -35,7 +35,8 @@
       select-enable-clipboard t
       window-combination-resize t
       ring-bell-function nil
-      visible-bell nil)
+      visible-bell nil
+      display-time-interval 10)
 
 (setq-default show-trailing-whitespace t
               cursor-in-non-selected-windows t
@@ -45,7 +46,9 @@
               truncate-lines t
               abbrev-mode t
               vc-follow-symlinks t
-              require-final-newline t)
+              require-final-newline t
+              diff-entire-buffers t
+              display-time-24hr-format t)
 
 (diminish 'abbrev-mode)
 
@@ -104,8 +107,12 @@
   :custom
   (proced-auto-update-flag t))
 
-(use-package emacs-everywhere)
+(use-package so-long
+  :ensure nil
+  :init
+  (global-so-long-mode))
 
+(use-package emacs-everywhere)
 
 ;; From https://www.emacswiki.org/emacs/ExecPath
 (defun set-exec-path-from-shell-PATH ()
@@ -123,5 +130,10 @@ apps are not started from a shell."
     (setq exec-path (split-string path-from-shell path-separator))))
 
 (set-exec-path-from-shell-PATH)
+
+(use-package special-mode
+  :ensure nil
+  :bind (:map special-mode-map
+              ("RET" . markdown-follow-thing-at-point)))
 
 (provide 'init-base)

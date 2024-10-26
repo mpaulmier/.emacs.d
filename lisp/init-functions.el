@@ -69,7 +69,7 @@ is in `no-dtw-modes'"
 (defun mp/disable-stw-maybe ()
   "Set `show-trailing-whitespace' to nil for modes defined in
 `no-stw-modes'"
-  (when (apply 'derived-mode-p mp/no-stw-modes)
+  (when (derived-mode-p mp/no-stw-modes)
     (setq-local show-trailing-whitespace nil)))
 
 (defun mp/save-executable-buffer ()
@@ -144,16 +144,6 @@ From: http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard"
 	      (org-export-string-as region 'md t '(:with-toc nil))))
 	(gui-set-selection 'CLIPBOARD markdown))))
 
-(defun mp/toggle-presentation-view ()
-  "Function to run when presenting emacs to users not familliar
-with my setup With `C-u' prefix, change the theme
-configuration (from light to dark and vice-versa)"
-  (interactive)
-  (if (equal '(4) current-prefix-arg)
-      (modus-themes-toggle))
-  (global-display-line-numbers-mode 'toggle)
-  (global-hl-line-mode 'toggle))
-
 (defun mp/get-file-name (filename &optional wilcards)
   "Get FILENAME without path"
   (interactive
@@ -197,6 +187,13 @@ to the begining of the line."
   (end-of-line)
   (insert ";")
   (newline nil t))
+
+(defun mp/show-time-for-fullscreen (frame)
+  "Show the time in the modeline when the FRAME becomes full screen. From https://emacs.ch/@bram85/112463005253079332"
+  (let ((fullscreen (frame-parameter frame 'fullscreen)))
+    (if (memq fullscreen '(fullscreen fullboth))
+        (display-time-mode 1)
+      (display-time-mode -1))))
 
 ;; Macros
 
