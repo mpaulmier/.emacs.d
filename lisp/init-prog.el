@@ -39,17 +39,12 @@
   :bind (:map flymake-mode-map
          ("C-c f" . consult-flymake)))
 
-(progn
-  (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
-  (require 'flymake-credo)
-  (setq flymake-credo-min-priority 1))
-
 (use-package flymake-cspell
+  :if (executable-find "cspell")
   :init
   ;; Force running flymake diags when openning a file managed by eglot after setting up cspell
   (add-hook 'eglot-managed-mode-hook (lambda nil
                                        (flymake-cspell-setup)
-                                       (flymake-credo-load)
                                        (flymake-start)))
   (setq flymake-cspell-diagnostic-type :note))
 
@@ -198,9 +193,16 @@
     (add-hook 'bash-mode 'bash-ts-mode)))
 
 (use-package elixir-ts-mode
+  :if (executable-find "elixir")
   :mode "\\.ex\\|\\.exs\\'"
   :after eglot
   :hook (elixir-ts-mode . eglot-ensure)
+  :config
+  (progn
+    (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
+    (require 'flymake-credo)
+    (add-hook 'eglot-managed-mode-hook #'flymake-credo-load)
+    (setq flymake-credo-min-priority 1))
   :init
   (add-to-list 'eglot-server-programs `(elixir-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
