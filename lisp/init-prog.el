@@ -186,6 +186,8 @@
   (when (not (null mp/tree-sitter-dir))
     (add-hook 'css-mode 'css-ts-mode)))
 
+(use-package emmet-mode)
+
 (use-package shell
   :ensure nil
   :init
@@ -205,6 +207,13 @@
     (setq flymake-credo-min-priority 1))
   :init
   (add-to-list 'eglot-server-programs `(elixir-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
+
+(use-package heex-ts-mode
+  :after elixir-ts-mode
+  :hook ((heex-ts-mode . eglot-ensure)
+         (heex-ts-mode . emmet-mode))
+  :init
+  (add-to-list 'eglot-server-programs `(heex-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
 (use-package php-mode)
 
