@@ -60,6 +60,8 @@
               tab-always-indent 'complete
               sort-fold-case t)
 
+(use-package xml-format)
+
 (global-display-fill-column-indicator-mode +1)
 (global-set-key (kbd "C-c M-l") #'sort-lines)
 
