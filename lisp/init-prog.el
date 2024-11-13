@@ -42,14 +42,10 @@
 (use-package flymake-cspell
   :if (executable-find "cspell")
   :init
-  ;; Force running flymake diags when openning a file managed by eglot after setting up cspell
-  (add-hook 'eglot-managed-mode-hook (lambda nil
-                                       (flymake-cspell-setup)
-                                       (flymake-start)))
   (setq flymake-cspell-diagnostic-type :note))
 
 (use-package sideline
-  :hook (eglot-managed-mode . sideline-mode)
+  :hook (flymake-mode . sideline-mode)
   :diminish sideline-mode
   :init
   (use-package sideline-flymake)
@@ -96,31 +92,28 @@
   (cider-repl-history-file "~/.config/emacs/cider-history")
   (cider-repl-wrap-history t))
 
-(use-package dart-mode
-  ;; Optional
-  :hook ((dart-mode . flycheck-mode)
-         (dart-mode . eglot-ensure)
-         (dart-mode . flutter-test-mode)))
+;; inhibit for now because I don't use dart/flutter at all
+;; (use-package dart-mode
+;;   ;; Optional
+;;   :hook ((dart-mode . flycheck-mode)
+;;          (dart-mode . eglot-ensure)
+;;          (dart-mode . flutter-test-mode)))
 
-(use-package flutter
-  :after dart-mode
-  :bind (:map dart-mode-map
-              ("C-M-x" . #'flutter-run-or-hot-reload))
-  :custom
-  (flutter-sdk-path "/opt/flutter/"))
+;; (use-package flutter
+;;   :after dart-mode
+;;   :bind (:map dart-mode-map
+;;               ("C-M-x" . #'flutter-run-or-hot-reload))
+;;   :custom
+;;   (flutter-sdk-path "/opt/flutter/"))
 
 (use-package typescript-mode
   :mode (("\\.ts\\'" . typescript-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))
-  :hook ((tsx-ts-mode . eglot-ensure)
-         (typescript-ts-mode . eglot-ensure)
-         (tsx-ts-mode . emmet-mode)))
+  :hook ((tsx-ts-mode . emmet-mode)))
 
 (use-package js
   :mode (("\\.js\\'" . js-jsx-mode)
          ("\\.jsx\\'" . tsx-ts-mode))
-  :hook (js-jsx-mode . eglot-ensure)
-  :hook (js-json-mode . eglot-ensure)
   :custom (js-indent-level 2))
 
 (use-package paredit
@@ -143,16 +136,13 @@
 
 (use-package lua-mode
   :ensure t
-  :hook ((lua-mode . electric-pair-mode)
-         (lua-mode . eglot-ensure))
+  :hook ((lua-mode . electric-pair-mode))
   :custom ((lua-indent-level 4)
            (lua-indent-nested-block-content-align nil)))
 
 (use-package python
   :ensure nil
   :mode ("\\.py" . python-ts-mode)
-  :hook
-  (python-ts-mode . eglot-ensure)
   :bind (:map python-ts-mode-map
               ("M-<right>" . python-indent-shift-right)
               ("M-<left>" . python-indent-shift-left)
@@ -174,7 +164,6 @@
 (use-package c-mode
   :ensure nil
   :mode (("\\.c\\'" . c-ts-mode))
-  :hook (c-ts-mode . eglot-ensure)
   :bind (:map c-ts-mode-map
               ("C-<return>" . mp/insert-semi-col)))
 
@@ -197,23 +186,16 @@
 (use-package elixir-ts-mode
   :if (executable-find "elixir")
   :mode "\\.ex\\|\\.exs\\'"
-  :after eglot
-  :hook (elixir-ts-mode . eglot-ensure)
   :config
   (progn
     (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
     (require 'flymake-credo)
-    (add-hook 'eglot-managed-mode-hook #'flymake-credo-load)
     (setq flymake-credo-min-priority 1))
   :init
-  (add-to-list 'eglot-server-programs `(elixir-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
 (use-package heex-ts-mode
   :after elixir-ts-mode
-  :hook ((heex-ts-mode . eglot-ensure)
-         (heex-ts-mode . emmet-mode))
-  :init
-  (add-to-list 'eglot-server-programs `(heex-ts-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
+  :hook ((heex-ts-mode . emmet-mode)))
 
 (use-package php-mode)
 
@@ -227,5 +209,17 @@
          (elixir-ts-mode . outline-indent-minor-mode))
   :custom
   (outline-indent-ellipsis " ▼ "))
+
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((elixir-mode . lsp)
+         (elixir-ts-mode . lsp)
+         (tsx-ts-mode . lsp)
+         (js-jsx-mode . lsp)
+         (js-ts-mode . lsp)
+         (json-ts-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
 
 (provide 'init-prog)
