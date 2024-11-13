@@ -136,4 +136,7 @@ apps are not started from a shell."
   :bind (:map special-mode-map
               ("RET" . markdown-follow-thing-at-point)))
 
+(use-package page-break-lines
+  :config (page-break-lines-mode))
+
 (provide 'init-base)
