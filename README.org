@@ -1,50 +1,16 @@
 #+TITLE: My personal emacs config
 
-* WARNING
-
-This readme is not up to date with the latest changes I have made to my config,
-don't expect any of the key bindings described here to work in the current
-version.
-
 * Repo organisation
 
 The configuration is currently organised in files under the =lisp= directory.
 
 It is organised in =use-package= declarations.
 
-The theme is the amazing =modus-operandi= by [[https://protesilaos.com/][Protesilaos Stavrou aka Prot]].
-
 * Using this config
 
 Please use with care, this repo might change a lot and is tailored for my use,
 which is probably not suitable for everyone. The configuration is used every day
 at work with *GNU Emacs version 30.1*.
-
-* Some notable key bindings (OUTDATED: To be updated/reused)
-
-| Key           | Behavior                                                                        |
-|---------------+---------------------------------------------------------------------------------|
-| "C-h B"       | Embark bindings (show list of bindings in minibuffer and run when selecting)    |
-| "C-."         | Embark act                                                                      |
-| "C-;"         | Embark dwim (I don't use this enough)                                           |
-| "C-c p"       | Switch to presentation view                                                     |
-| "C-c e"       | Browse the =lisp= directory of this configuration                               |
-| "M-S-<SPC>"   | Join current line with the next one with a single space between the two         |
-| "C-S-x C-S-e" | Eval elisp sexp at point and replace it with the result                         |
-| "C-x C-r"     | Rename the file visited by the current buffer                                   |
-| "C-="         | Increase number at point by 1                                                   |
-| "C--"         | Decrease number at point by 1                                                   |
-| "C-c g"       | Launch magit status in full screen, probably my prefered binding                |
-| "C-c G"       | Magit blame in the current buffer                                               |
-| "C-c i"       | Init git repo with magit                                                        |
-| "C-S-x C-S-f" | Find file in project                                                            |
-| "C-S-s"       | Ripgrep with consult (in project if appliable)                                  |
-| "M-y"         | Use consult to browse kill ring and yank at point                               |
-| "C-x C-d"     | Dired jump (open parent directory without prompting)                            |
-| "M-n"         | Move line up                                                                    |
-| "M-p"         | Move line down                                                                  |
-| "C-c c"       | Org capture (not a heavy org user so the templates are not very interesting rn) |
-| "C-c o"       | Browse the org directory (customisable via =mp/org-directory=)                  |
 
 * License
 
