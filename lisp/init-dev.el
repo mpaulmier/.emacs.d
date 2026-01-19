@@ -42,7 +42,16 @@
   (setq eglot-events-buffer-size 0)
   (add-to-list
    'eglot-server-programs
-   `(elixir-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
+   `(elixir-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh")))
+  (add-to-list
+   'eglot-server-programs
+   `(tsx-ts-mode "rass" "--" "typescript-language-server" "--stdio" "--" "vscode-eslint-language-server" "--stdio")))
+
+(use-package breadcrumb
+  :after eglot
+  :ensure t
+  :init
+  (add-hook 'eglot-managed-mode-hook #'breadcrumb-mode))
 
 (use-package elixir-ts-mode
   :ensure t
