@@ -44,24 +44,49 @@
    'eglot-server-programs
    `(elixir-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh"))))
 
-(use-package elixir-mode
+(use-package elixir-ts-mode
   :ensure t
-  :hook (elixir-mode . eglot-ensure)
+  :hook (elixir-ts-mode . eglot-ensure)
   :init
   (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
   (add-hook 'eglot-managed-mode-hook #'flymake-credo-load)
   (require 'flymake-credo)
-  (setq flymake-credo-min-priority 1)
-
-  (setq auto-mode-alist
-      (append
-       '(("\\.ex\\'" . elixir-mode)
-         ("\\.eex\\'" . elixir-mode))
-       auto-mode-alist)))
+  (setq flymake-credo-min-priority 1))
 
 (use-package goto-addr
   :ensure nil
   :hook
   (prog-mode . goto-address-mode))
+
+(use-package treesit
+  :ensure nil
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.js\\'"  . tsx-ts-mode)
+         ("\\.mjs\\'" . tsx-ts-mode)
+         ("\\.mts\\'" . tsx-ts-mode)
+         ("\\.cjs\\'" . tsx-ts-mode)
+         ("\\.ts\\'"  . tsx-ts-mode)
+         ("\\.jsx\\'" . tsx-ts-mode)
+         ("\\.json\\'" .  json-ts-mode)
+         ("\\.Dockerfile\\'" . dockerfile-ts-mode)
+         ("\\.ex\\'" . elixir-ts-mode)
+         ("\\.eex\\'" . elixir-ts-mode)
+         ("\\.exs\\'" . elixir-ts-mode))
+  :custom (treesit-font-lock-level 4)
+  :init
+  (dolist (mapping
+           '((python-mode . python-ts-mode)
+             (css-mode . css-ts-mode)
+             (typescript-mode . typescript-ts-mode)
+             (js-mode . typescript-ts-mode)
+             (js2-mode . typescript-ts-mode)
+             (c-mode . c-ts-mode)
+             (bash-mode . bash-ts-mode)
+             (json-mode . json-ts-mode)
+             (js-json-mode . json-ts-mode)
+             (sh-mode . bash-ts-mode)
+             (sh-base-mode . bash-ts-mode)
+             (elixir-mode . elixir-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping)))
 
 (provide 'init-dev)

@@ -38,3 +38,5 @@ multisession/
 cider-history
 emojis
 request
+tree-sitter/*
+!tree-sitter/.gitkeep

@@ -8,11 +8,15 @@
   (mode-line ((t (:underline nil))))
   :config
   (let ((mono-spaced-font "Iosevka Term")
-	(proportionately-spaced-font "Sans"))
-    (set-face-attribute 'default nil :family mono-spaced-font :height 120)
+	    (proportionately-spaced-font "Sans"))
+    (set-face-attribute 'default nil :family mono-spaced-font :height 140)
     (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-    (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0))
-  (load-theme 'tango))
+    (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0)))
+
+(use-package ef-themes
+  :ensure t
+  :init
+  (load-theme 'ef-cyprus))
 
 (use-package display-line-numbers
   :ensure nil
@@ -33,5 +37,19 @@
   :ensure nil
   :init
   (fset 'list-buffers 'ibuffer))
+
+(use-package emacs
+  :ensure nil
+  :init
+  (column-number-mode)
+  :config
+  (global-set-key
+   (kbd "C-c r")
+   #'(lambda nil
+       "Replace string starting from the beggining of the current buffer (visible only)"
+       (interactive)
+       (save-excursion
+         (beginning-of-buffer)
+         (call-interactively #'replace-string)))))
 
 (provide 'init-ui)
