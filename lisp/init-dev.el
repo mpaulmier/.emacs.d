@@ -98,4 +98,8 @@
              (elixir-mode . elixir-ts-mode)))
     (add-to-list 'major-mode-remap-alist mapping)))
 
+
+(use-package claude-code-ide
+  :ensure t)
+
 (provide 'init-dev)
