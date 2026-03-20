@@ -20,8 +20,7 @@
 (use-package prog-mode
   :ensure nil
   :hook
-  (prog-mode . electric-pair-mode)
-  (prog-mode . electric-layout-mode))
+  (prog-mode . electric-pair-mode))
 
 (defun mp/save-executable-buffer ()
   (save-excursion
