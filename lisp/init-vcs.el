@@ -9,6 +9,7 @@
   (git-commit-summary-max-length 50)
   (magit-bind-magit-project-status t)
   :init
+  (require 'magit-extras)
   (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/magit-todos"))
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-topleft-v1)
   :config
