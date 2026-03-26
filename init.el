@@ -109,5 +109,6 @@ The DWIM behaviour of this command is as follows:
 (require 'init-completion)
 (require 'init-vcs)
 (require 'init-ui)
+(require 'init-meta-project)
 
 (setq debug-on-error t)
