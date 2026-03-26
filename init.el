@@ -5,9 +5,8 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(require 'init-functions)
-
-(global-set-key (kbd "C-a") #'mp/beginning-of-line-or-indent)
+(require 'init-editing)
+(require 'init-dired)
 
 (defconst mp/emacs-tmp-dir
   (format "%s%s%s/" temporary-file-directory "emacs" (user-uid))

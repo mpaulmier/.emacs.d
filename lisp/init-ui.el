@@ -55,4 +55,28 @@
 ;; Show colors in compilation buffer
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
+;;; Whitespace
+
+(defun mp/delete-trailing-whitespace-maybe ()
+  "Run `delete-trailing-whitespace' when saving unless current mode
+is in `no-dtw-modes'"
+  (when (not (apply 'derived-mode-p mp/no-dtw-modes))
+    (delete-trailing-whitespace)))
+
+(defun mp/disable-stw-maybe ()
+  "Set `show-trailing-whitespace' to nil for modes defined in
+`no-stw-modes'"
+  (when (derived-mode-p mp/no-stw-modes)
+    (setq-local show-trailing-whitespace nil)))
+
+;;; Fullscreen
+
+(defun mp/show-time-for-fullscreen (frame)
+  "Show the time in the modeline when the FRAME becomes full screen.
+From https://emacs.ch/@bram85/112463005253079332"
+  (let ((fullscreen (frame-parameter frame 'fullscreen)))
+    (if (memq fullscreen '(fullscreen fullboth))
+        (display-time-mode 1)
+      (display-time-mode -1))))
+
 (provide 'init-ui)

@@ -22,7 +22,40 @@
   :hook
   (prog-mode . electric-pair-mode))
 
+(defun mp/save-executable-buffer ()
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (when (and (looking-at "^#!")
+                 (not (file-executable-p buffer-file-name)))
+        (set-file-modes buffer-file-name
+                        (logior (file-modes buffer-file-name) #o100))
+        (message (format "Made %s executable" buffer-file-name))))))
+
 (add-hook 'before-save-hook #'mp/save-executable-buffer)
+
+(defun mp/comint-clear ()
+  (interactive)
+  (let ((orig-ln (line-number-at-pos))
+        (col (current-column))
+        (cmd (progn (end-of-buffer)
+                    (move-end-of-line nil)
+                    (set-mark (point))
+                    (move-beginning-of-line nil)
+                    (buffer-substring (region-beginning) (region-end))))
+        (after-ln (line-number-at-pos)))
+    (delete-region (region-beginning) (region-end))
+    (comint-clear-buffer)
+    (insert cmd)
+    (if (= orig-ln after-ln)
+        (move-to-column col t)
+      (move-beginning-of-line nil))))
+
+(defun mp/eglot-ensure-if-in-project ()
+  "Run eglot-ensure only if in a project."
+  (when (project-current)
+    (eglot-ensure)))
 
 (use-package eglot
   :config
