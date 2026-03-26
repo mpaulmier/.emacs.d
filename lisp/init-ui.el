@@ -52,4 +52,7 @@
          (beginning-of-buffer)
          (call-interactively #'replace-string)))))
 
+;; Show colors in compilation buffer
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
 (provide 'init-ui)
