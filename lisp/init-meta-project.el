@@ -80,12 +80,32 @@ Example .dir-locals.el:
 
 ;;; Project detection
 
+(defun mp/meta-project--inside-sub-project-p (dir root)
+  "Return non-nil if DIR is inside a VCS sub-project under ROOT.
+Checks whether a .git directory exists between DIR and ROOT,
+meaning a more specific project should take precedence."
+  (let ((dir (expand-file-name dir))
+        (root (expand-file-name root)))
+    (and (not (file-equal-p dir root))
+         (locate-dominating-file
+          dir
+          (lambda (d)
+            (and (not (file-equal-p d root))
+                 (file-exists-p (expand-file-name ".git" d))))))))
+
 (defun mp/meta-project-find (dir)
   "Find a meta-project root by looking for the marker file.
 DIR is the directory to start searching from.
-Returns a cons cell (meta . ROOT-DIR) if found, nil otherwise."
+Returns a cons cell (meta . ROOT-DIR) if found, nil otherwise.
+If DIR is inside a VCS sub-project, return nil so the VC backend
+handles it instead."
   (when-let ((root (locate-dominating-file dir mp/meta-project-marker)))
-    (cons 'meta (file-name-as-directory root))))
+    (let ((root (file-name-as-directory root)))
+      ;; Only claim this directory if it's not inside a VCS sub-project.
+      ;; If there's a .git between DIR and the meta-project root, the VC
+      ;; backend should handle it.
+      (unless (mp/meta-project--inside-sub-project-p dir root)
+        (cons 'meta root)))))
 
 ;;; Project methods
 
@@ -152,10 +172,23 @@ Combines common ignore patterns with user exclusions from
     (append '(".git/" "node_modules/" "_build/" "deps/" "__pycache__/" "*.elc" "*.pyc" "*.beam")
             (mapcar (lambda (dir) (concat dir "/")) exclusions))))
 
+;;; Commands
+
+(defun mp/meta-project-switch ()
+  "Switch to the meta-project containing the current directory.
+Opens the project dispatch menu at the meta-project root,
+allowing you to run any `C-x p' command in the meta-project context."
+  (interactive)
+  (if-let ((root (locate-dominating-file default-directory mp/meta-project-marker)))
+      (project-switch-project (file-name-as-directory root))
+    (user-error "No meta-project found above %s" default-directory)))
+
 ;;; Registration
 
 ;; Add with high priority (-90) so it's checked before the VC backend (0)
 (add-hook 'project-find-functions #'mp/meta-project-find -90)
+
+(define-key project-prefix-map "M" #'mp/meta-project-switch)
 
 (provide 'init-meta-project)
 ;;; init-meta-project.el ends here
