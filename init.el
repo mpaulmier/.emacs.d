@@ -5,19 +5,7 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(defun mp/beginning-of-line-or-indent ()
-  "Put the cursor at the begining of the line or at the
-indentation level. If the cursor position is anywhere but the
-indentation level, send it to this position, otherwise, send it
-to the begining of the line."
-  (interactive)
-  (let ((pos (point))
-        (bol (save-excursion (move-beginning-of-line nil) (point)))
-        (boi (save-excursion (back-to-indentation) (point))))
-    (cond
-     ((eq pos bol) (goto-char boi))
-     ((eq pos boi) (goto-char bol))
-     (t (goto-char boi)))))
+(require 'init-functions)
 
 (global-set-key (kbd "C-a") #'mp/beginning-of-line-or-indent)
 

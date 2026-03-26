@@ -22,17 +22,6 @@
   :hook
   (prog-mode . electric-pair-mode))
 
-(defun mp/save-executable-buffer ()
-  (save-excursion
-    (save-restriction
-      (widen)
-      (goto-char (point-min))
-      (when (and (looking-at "^#!")
-                 (not (file-executable-p buffer-file-name)))
-        (set-file-modes buffer-file-name
-                        (logior (file-modes buffer-file-name) #o100))
-        (message (format "Made %s executable" buffer-file-name))))))
-
 (add-hook 'before-save-hook #'mp/save-executable-buffer)
 
 (use-package eglot
@@ -98,7 +87,5 @@
     (add-to-list 'major-mode-remap-alist mapping)))
 
 
-(use-package claude-code-ide
-  :ensure t)
 
 (provide 'init-dev)
