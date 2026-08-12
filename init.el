@@ -88,11 +88,13 @@ The DWIM behaviour of this command is as follows:
 (use-package claude-code-ide
   :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
   :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :custom (claude-code-ide-terminal-backend 'eat)
   :config
   (claude-code-ide-emacs-tools-setup))
 
 (require 'init-package)
 (require 'init-dev)
+(require 'init-nix)
 (require 'init-completion)
 (require 'init-vcs)
 (require 'init-ui)

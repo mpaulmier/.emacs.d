@@ -88,6 +88,8 @@
   :hook
   (prog-mode . goto-address-mode))
 
+(use-package lua-mode :ensure t)
+
 (use-package treesit
   :ensure nil
   :mode (("\\.tsx\\'" . tsx-ts-mode)
@@ -101,11 +103,13 @@
          ("\\.Dockerfile\\'" . dockerfile-ts-mode)
          ("\\.ex\\'" . elixir-ts-mode)
          ("\\.eex\\'" . elixir-ts-mode)
-         ("\\.exs\\'" . elixir-ts-mode))
+         ("\\.exs\\'" . elixir-ts-mode)
+         ("\\.lua\\'" . lua-ts-mode))
   :custom (treesit-font-lock-level 4)
   :init
   (dolist (mapping
-           '((python-mode . python-ts-mode)
+           '((lua-mode . lua-ts-mode)
+             (python-mode . python-ts-mode)
              (css-mode . css-ts-mode)
              (typescript-mode . typescript-ts-mode)
              (js-mode . typescript-ts-mode)

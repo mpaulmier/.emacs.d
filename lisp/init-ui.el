@@ -57,6 +57,9 @@
 
 ;;; Whitespace
 
+(defvar mp/no-stw-modes '(eat-mode comint-mode markdown-mode)
+  "Modes where `show-trailing-whitespace' should be disabled.")
+
 (defun mp/delete-trailing-whitespace-maybe ()
   "Run `delete-trailing-whitespace' when saving unless current mode
 is in `no-dtw-modes'"
@@ -69,6 +72,8 @@ is in `no-dtw-modes'"
   (when (derived-mode-p mp/no-stw-modes)
     (setq-local show-trailing-whitespace nil)))
 
+(add-hook 'after-change-major-mode-hook #'mp/disable-stw-maybe)
+
 ;;; Fullscreen
 
 (defun mp/show-time-for-fullscreen (frame)
@@ -78,5 +83,8 @@ From https://emacs.ch/@bram85/112463005253079332"
     (if (memq fullscreen '(fullscreen fullboth))
         (display-time-mode 1)
       (display-time-mode -1))))
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (provide 'init-ui)
