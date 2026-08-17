@@ -84,6 +84,7 @@ The DWIM behaviour of this command is as follows:
 
 ;;; required by claude code
 (use-package vterm :ensure t)
+(use-package eat :ensure t)
 
 (use-package claude-code-ide
   :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
