@@ -101,5 +101,9 @@ From: http://mbork.pl/2021-05-02_Org-mode_to_Markdown_via_the_clipboard"
 
 (global-set-key (kbd "C-a") #'mp/beginning-of-line-or-indent)
 
+(add-hook 'before-save-hook (lambda nil
+                              (when (derived-mode-p '(prog-mode org-mode))
+                                (delete-trailing-whitespace))))
+
 (provide 'init-editing)
 ;;; init-editing.el ends here

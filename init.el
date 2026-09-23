@@ -1,5 +1,9 @@
+
 ;; Set lexical-binding to true by default
 (setq-default lexical-binding t)
+
+(setq gc-cons-threshold (* 100 1024 1024))
+(setq read-process-output-max (* 4 1024 1024))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -73,13 +77,6 @@ The DWIM behaviour of this command is as follows:
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(use-package ns-win
-  :ensure nil
-  :custom
-  (mac-right-option-modifier "alt")
-  :init
-  (global-set-key [kp-delete] 'delete-char))
-
 ;; AI
 
 ;;; required by claude code
@@ -93,6 +90,19 @@ The DWIM behaviour of this command is as follows:
   :config
   (claude-code-ide-emacs-tools-setup))
 
+(setq auth-sources '("~/.authinfo"))
+
+(use-package ns-win
+  :ensure nil
+  :custom
+  (mac-right-option-modifier "alt")
+  :init
+  (global-set-key [kp-delete] 'delete-char))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :init (exec-path-from-shell-initialize))
+
 (require 'init-package)
 (require 'init-dev)
 (require 'init-nix)
@@ -101,5 +111,5 @@ The DWIM behaviour of this command is as follows:
 (require 'init-ui)
 (require 'init-project)
 (require 'init-meta-project)
-
-(setq debug-on-error t)
+(require 'init-calendar)
+(require 'init-md)

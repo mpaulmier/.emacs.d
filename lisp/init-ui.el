@@ -2,27 +2,55 @@
   :ensure t
   :hook (after-init . marginalia-mode))
 
+(defvar mp/fixed-width-font "Iosevka Nerd Font Mono"
+  "The font to use for monospaced (fixed width) text.")
+
+;; Variable pitch doesn't work for now, I'll stick with a mono font and see if one works for me later
+(defvar mp/variable-width-font "Garamontio"
+  "The font to use for variable-pitch (document) text.")
+
 (use-package faces
   :ensure nil
   :custom-face
-  (mode-line ((t (:underline nil))))
-  :config
-  (let ((mono-spaced-font "Iosevka Term")
-	    (proportionately-spaced-font "Sans"))
-    (set-face-attribute 'default nil :family mono-spaced-font :height 140)
-    (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.0)
-    (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.0)))
+  (mode-line ((t (:underline nil)))))
 
 (use-package ef-themes
   :ensure t
   :init
-  (load-theme 'ef-cyprus))
+  (load-theme 'ef-day))
+
+;; (use-package nano
+;;   :vc (:url "https://github.com/rougier/nano-emacs" :rev :newest)
+;;   :custom
+;;   (nano-font-family-monospaced mp/fixed-width-font)
+;;   (nano-font-family-proportional nil)
+;;   (nano-font-size 22)
+;;   :init
+;;   (progn
+;;     (require 'nano-layout)
+;;     (require 'nano-faces)
+;;     (require 'nano-theme)
+;;     ;; (require 'nano-theme-dark)
+;;     (require 'nano-theme-light)
+;;     (nano-theme-set-light)
+;;     (call-interactively 'nano-refresh-theme)
+;;     (require 'nano-defaults)
+;;     (require 'nano-session)
+;;     (require 'nano-modeline)
+;;     (let ((inhibit-message t))
+;;       (message "Welcome to GNU Emacs / N Λ N O edition")
+;;       (message (format "Initialization time: %s" (emacs-init-time))))
+;;     (require 'nano-splash)
+;;     (require 'nano-help)))
 
 (use-package display-line-numbers
   :ensure nil
   :hook (after-init . global-display-line-numbers-mode)
-  :custom-face (line-number-current-line ((t (:foreground ,(face-attribute 'error :foreground nil 'default)
+  :custom-face
+  (line-number-current-line ((t (:font-family ,mp/fixed-width-font
+                                              :foreground ,(face-attribute 'error :foreground nil 'default)
                                               :background ,(face-attribute 'highlight :background nil 'default)))))
+  (line-number ((t (:font-family ,mp/fixed-width-font))))
   :custom (display-line-numbers-width-start t))
 
 (use-package which-key
@@ -57,14 +85,8 @@
 
 ;;; Whitespace
 
-(defvar mp/no-stw-modes '(eat-mode comint-mode markdown-mode)
+(defvar mp/no-stw-modes '(eat-mode comint-mode markdown-mode special-mode)
   "Modes where `show-trailing-whitespace' should be disabled.")
-
-(defun mp/delete-trailing-whitespace-maybe ()
-  "Run `delete-trailing-whitespace' when saving unless current mode
-is in `no-dtw-modes'"
-  (when (not (apply 'derived-mode-p mp/no-dtw-modes))
-    (delete-trailing-whitespace)))
 
 (defun mp/disable-stw-maybe ()
   "Set `show-trailing-whitespace' to nil for modes defined in
@@ -73,6 +95,12 @@ is in `no-dtw-modes'"
     (setq-local show-trailing-whitespace nil)))
 
 (add-hook 'after-change-major-mode-hook #'mp/disable-stw-maybe)
+
+(defun mp/delete-trailing-whitespace-maybe ()
+  "Run `delete-trailing-whitespace' when saving unless current mode
+is in `no-dtw-modes'"
+  (when (not (apply 'derived-mode-p mp/no-dtw-modes))
+    (delete-trailing-whitespace)))
 
 ;;; Fullscreen
 

@@ -7,14 +7,14 @@
   :custom
   ;; Maximum acceptable width for summary buffer
   (git-commit-summary-max-length 50)
-  (magit-bind-magit-project-status t)
   :init
   (require 'magit-extras)
   (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/magit-todos"))
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-topleft-v1)
-  :config
-  (require 'magit-todos)
-  (magit-todos-mode 1))
+  (define-key project-prefix-map "m" #'magit-project-status)
+  (define-key project-prefix-map "g" #'magit-project-dispatch)
+  (add-to-list 'project-switch-commands '(magit-project-status "Magit status"))
+  (add-to-list 'project-switch-commands '(magit-project-dispatch "Magit dispatch")))
 
 (use-package magit
   :if (eq system-type 'darwin)

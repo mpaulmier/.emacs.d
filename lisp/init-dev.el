@@ -59,14 +59,17 @@
 
 (use-package eglot
   :config
-  (setq eglot-sync-connect nil)    ;; Don't block on connection
-  (setq eglot-events-buffer-size 0)
+  (setq eglot-sync-connect 0)    ;; Don't block on connection
+  (setq eglot-events-buffer-config '(:size 0))
+  (setq eglot-inlay-hints-mode t)
+  (setq eglot-autoshutdown t)
+  (setq eglot-max-file-watches 5000)
   (add-to-list
    'eglot-server-programs
-   `(elixir-mode ,(concat (getenv "HOME") "/elixir-ls/language_server.sh")))
+   `((elixir-mode elixir-ts-mode heex-ts-mode) ,(concat (getenv "HOME") "/elixir-ls/language_server.sh")))
   (add-to-list
    'eglot-server-programs
-   `(tsx-ts-mode "rass" "--" "typescript-language-server" "--stdio" "--" "vscode-eslint-language-server" "--stdio")))
+   '((tsx-ts-mode :language-id "typescriptreact") . ("rass" "--" "typescript-language-server" "--stdio" "--" "oxlint" "--lsp" "--" "oxfmt" "--lsp"))))
 
 (use-package breadcrumb
   :after eglot
@@ -76,12 +79,17 @@
 
 (use-package elixir-ts-mode
   :ensure t
-  :hook (elixir-ts-mode . eglot-ensure)
+  :hook ((heex-ts-mode . mp/eglot-ensure-if-in-project)
+         (elixir-ts-mode . mp/eglot-ensure-if-in-project))
   :init
   (add-to-list 'load-path (concat user-emacs-directory "/site-elisp/flymake-credo"))
   (add-hook 'eglot-managed-mode-hook #'flymake-credo-load)
   (require 'flymake-credo)
-  (setq flymake-credo-min-priority 1))
+  (setq flymake-credo-min-priority 1)
+  (add-hook 'before-save-hook (lambda nil
+                                (when (and (derived-mode-p '(elixir-mode))
+                                           (eglot-current-server))
+                                  (eglot-format-buffer)))))
 
 (use-package goto-addr
   :ensure nil
@@ -114,7 +122,7 @@
              (typescript-mode . typescript-ts-mode)
              (js-mode . typescript-ts-mode)
              (js2-mode . typescript-ts-mode)
-             (c-mode . c-ts-mode)
+             (c-mode . c++-ts-mode)
              (bash-mode . bash-ts-mode)
              (json-mode . json-ts-mode)
              (js-json-mode . json-ts-mode)
@@ -123,6 +131,19 @@
              (elixir-mode . elixir-ts-mode)))
     (add-to-list 'major-mode-remap-alist mapping)))
 
+(use-package typescript-ts-mode
+  :ensure nil
+  :hook (tsx-ts-mode . mp/eglot-ensure-if-in-project))
 
+(use-package gdscript-mode
+  :hook (gdscript-mode . mp/eglot-ensure-if-in-project))
+
+(use-package vterm
+  :ensure nil
+  :hook (vterm-mode . (lambda ()
+                        (setq show-trailing-whitespace nil))))
+
+(use-package xml-format
+  :ensure t)
 
 (provide 'init-dev)

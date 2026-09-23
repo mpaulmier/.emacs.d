@@ -9,6 +9,8 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
+(setq package-review-policy t)
+
 (eval-and-compile
   (setq use-package-always-ensure t)
   (setq use-package-always-defer t)
